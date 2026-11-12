@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Credentials & secrets — NEVER commit these
+*.pem
+*.key
+id_rsa*
+*.env
+.env.*
+
+# Antigravity / agent artifacts
+.gemini/
+
+# Misc
+node_modules/
+.sass-cache/
+*.log
+Thumbs.db
