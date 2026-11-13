@@ -1,82 +1,136 @@
-# Sidecar Setup Guide — Interactive Website Prototype
+# Sidecar Setup Guide V2
 
-Interactive tutorial website for **Mac mini M4 + iPad 9th generation (Lightning)** — setting up Sidecar as a headless display solution.
+Interactive setup guide for using an **iPad 9 as the main working
+display for a Mac mini M4**.
 
-## 🌐 Live Demo
+Live V1 reference:\
+https://firhyun.github.io/sidecar-setup-guide/
 
-**GitHub Pages:** [https://firhyun.github.io/sidecar-setup-guide/](https://firhyun.github.io/sidecar-setup-guide/)
+This repository version is the **V2 frontend/prototype foundation**.
 
-## Features
+## What changed in V2
 
-- **6 Chapters** — Before You Start, Connect Your iPad, Configure BetterDisplay, Make It Automatic, One-Tap Connection, Go Headless
-- **Apple-inspired design** — Clean typography, sidebar navigation, subtle gradients
-- **Progress tracking** — Chapter completion with localStorage persistence
-- **Copy command** — One-click copy for Terminal/BetterDisplay CLI commands with fallback
-- **Troubleshooting & FAQ** — Accordion-style help sections
-- **Responsive layout** — Desktop sidebar, tablet, and mobile hamburger menu
-- **Admin UI prototype** — Invite/manage access simulation (frontend-only, NOT real authentication)
+-   Fixed viewport-height architecture using `100dvh`.
+-   Header stays visible.
+-   Sidebar fills the usable viewport.
+-   Troubleshooting, FAQ, and Overview stay reachable at the bottom.
+-   Main guide area scrolls independently.
+-   Mobile/tablet sidebar becomes a drawer.
+-   Six chapter navigation retained.
+-   Progress persists in `localStorage`.
+-   Terminal commands/scripts remain copyable.
+-   Premium prose uses only light copy deterrence.
+-   Screenshot slots are prepared for real owner-tested captures.
+-   "Access status" is explicitly a placeholder; GitHub Pages is **not**
+    treated as paid-content security.
+-   Structure is ready to be migrated to Supabase Auth + entitlement
+    later.
 
-## Run Locally
+## Files
 
-No build step or dependencies. Open `index.html` in a browser:
-
-```bash
-python3 -m http.server 8000
-# Then open http://localhost:8000
+``` text
+index.html       V2 interactive frontend
+README.md        Setup/deployment notes
+SOURCE_CODE.md   Architecture and agent handoff notes
 ```
 
-## Project Structure
+## Run locally
 
-```
-├── index.html        # Complete self-contained single-page application
-├── README.md         # This file
-├── SOURCE_CODE.md    # Source code reference for handoff
-├── SUPABASE_AUTH.md  # Production auth implementation guide
-└── .gitignore        # Git ignore rules
+No build step is required for this prototype.
+
+``` bash
+python3 -m http.server 8080
 ```
 
-## ⚠️ Important — Prototype Limitations
+Then open:
 
-This is a **static website prototype** deployed on GitHub Pages:
+``` text
+http://localhost:8080
+```
 
-- **No real authentication** — The "Manage access" and "Sign-in" modals are UI simulations only. They do not secure content, verify identity, or send invitations.
-- **No server-side protection** — All content is publicly accessible on GitHub Pages.
-- **No credentials committed** — SSH keys, device details, passwords, and personal information must never be added to this repository.
-- **localStorage only** — Progress tracking is per-device/per-browser. Allowed users list is in-memory and resets on refresh.
+You can also open `index.html` directly, although a local HTTP server is
+preferred.
 
-## 🔒 Production Implementation
+## GitHub Pages
 
-For production private access, see [SUPABASE_AUTH.md](SUPABASE_AUTH.md) for a complete Supabase Auth implementation guide covering:
+1.  Replace the existing repository `index.html` with the V2 file.
+2.  Commit `README.md` and `SOURCE_CODE.md`.
+3.  Push to the branch currently used by GitHub Pages.
+4.  Open the deployed URL and hard refresh.
+5.  Test desktop height, mobile drawer, progress, and Copy Command.
 
-- Magic link / invite-only authentication
-- Server-side content protection
-- User management and allowlist
-- Per-user progress persistence
-- Revoke access and audit logging
+## Required content work before selling
 
-## Repository Management
+Replace screenshot placeholders with real screenshots from the tested
+Mac mini M4 + iPad 9 setup.
 
-### Updating Content
+Verify every command/script on the actual devices.
 
-1. Edit `index.html` directly — all HTML, CSS, and JS are in one file
-2. Commit and push to `main` branch
-3. GitHub Pages will auto-deploy within 1–2 minutes
+The reconnect automation runner must not be described as verified until
+it has actually been tested.
 
-### Adding Screenshots
+## Important security note
 
-Replace the visual placeholders in the code with real screenshots:
-1. Create an `assets/` directory
-2. Add screenshot images
-3. Update the `visual()` function in `index.html` to reference real images
+This V2 GitHub Pages version is still a **prototype/public frontend**.
 
-### Branch Strategy
+`user-select: none`, disabled image dragging, hidden UI, or JavaScript
+access checks are not real paid-content security.
 
-| Branch | Purpose |
-|--------|---------|
-| `main` | Production — auto-deployed to GitHub Pages |
-| `dev` | Development and testing |
-| `feature/*` | Feature branches for new content |
+Production paid access should use:
 
----
+``` text
+Supabase Auth
+      ↓
+Entitlement check
+      ↓
+Protected guide
+```
 
-Based on `Guidebook_Sidecar_Mac_Mini_M4_iPad_9 (1).md` (source version Nov 3, 2026).
+Payment direction:
+
+``` text
+Lemon Squeezy
+      ↓
+Verified webhook
+      ↓
+Supabase entitlement
+      ↓
+Guide access
+```
+
+Do not put Supabase service-role keys, payment API keys, or webhook
+secrets in `index.html`.
+
+## V2 acceptance checklist
+
+-   [ ] Header stays visible.
+-   [ ] Sidebar fits viewport.
+-   [ ] Troubleshooting / FAQ / Overview are reachable without
+    whole-page scrolling.
+-   [ ] Main guide scrolls independently.
+-   [ ] Mobile drawer works.
+-   [ ] No critical horizontal overflow.
+-   [ ] All six chapters open.
+-   [ ] Progress survives refresh.
+-   [ ] Copy Command works.
+-   [ ] Commands remain selectable.
+-   [ ] Real screenshots replace placeholders before paid launch.
+-   [ ] Technical steps are owner-tested.
+
+## Next production phase
+
+After this frontend is approved:
+
+1.  Refactor into the chosen production framework if required.
+2.  Connect Supabase Auth.
+3.  Add `profiles`, `entitlements`, `guide_progress`, and approved
+    session/device logic.
+4.  Protect premium guide content server-side.
+5.  Add personalized watermark.
+6.  Deploy production app to Cloudflare.
+7.  Integrate Lemon Squeezy.
+8.  Verify payment webhook.
+9.  Grant/revoke entitlement automatically.
+10. Run end-to-end customer QA.
+
+See `SOURCE_CODE.md` for implementation rules.

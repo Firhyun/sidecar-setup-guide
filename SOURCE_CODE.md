@@ -1,52 +1,316 @@
-# Source Code — Sidecar Setup Guide
+# Sidecar Setup Guide V2 --- Source Code & Agent Handoff
 
-File ini berisi source code `index.html` lengkap untuk handoff ke coding agent. Simpan blok HTML di bawah menjadi `index.html`. Detail deployment, batasan akses privat, dan tahap production ada di `README.md`.
+## Purpose
 
-```html
-<!doctype html>
-<html lang="id">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f7f8fb"><meta name="description" content="Interactive Sidecar Setup Guide for Mac mini M4 and iPad 9">
-<title>Sidecar Setup Guide — Mac mini M4 × iPad 9</title>
-<style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;color:#202938;background:#f6f7fa;font-synthesis:none}*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #9bbafa;outline-offset:2px}.top{height:68px;background:#fff;border-bottom:1px solid #e7eaf0;display:flex;justify-content:space-between;align-items:center;padding:0 28px;gap:12px}.brand{font-size:16px;font-weight:800;letter-spacing:-.5px}.brand span{font-weight:450;color:#939ba7}.mark{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#293241;color:white;margin-right:9px}.header-actions{display:flex;gap:9px;align-items:center}.outline{background:#fff;color:#354153;border:1px solid #e1e5ec;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:650}.avatar{background:#e7eafa;border-radius:50%;height:32px;width:32px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#5957b0}.layout{display:grid;grid-template-columns:255px minmax(0,1fr);min-height:calc(100vh - 68px)}aside{background:#fff;border-right:1px solid #e7eaf0;display:flex;flex-direction:column;padding:28px 14px 20px;gap:16px}.sidehead{padding:0 12px}.eyebrow{color:#8490a3;text-transform:uppercase;font-size:10px;font-weight:750;letter-spacing:1.25px}.sidehead h2{font-size:18px;letter-spacing:-.5px;margin:9px 0 5px}.muted{color:#7c889a}.small{font-size:11px;line-height:1.6}.progressmeta{display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin:24px 0 9px}.track{height:6px;background:#ebeff5;border-radius:10px;overflow:hidden}.fill{height:100%;background:#457af5;width:0%;transition:width .2s}.navlabel{margin:10px 12px 0;color:#8995a5;letter-spacing:1.2px;font-size:10px;font-weight:750}.nav{display:grid;gap:4px}.navbutton{display:flex;align-items:center;gap:11px;text-align:left;width:100%;border:0;background:transparent;padding:11px;border-radius:10px;color:#404d5d}.navbutton:hover{background:#f5f7fa}.navbutton.active{background:#ebf1ff;color:#3770eb}.navnum{width:29px;height:29px;border-radius:8px;background:#f0f2f6;display:grid;place-items:center;font-size:10px;font-weight:750;flex:none}.active .navnum{background:#457af5;color:white}.done .navnum{background:#def5e8;color:#237e50}.navtitle{font-size:12px;font-weight:700}.navsub{font-size:10px;margin-top:3px;color:#8b97a6}.sidelinks{margin-top:auto;border-top:1px solid #e7eaf0;padding-top:12px}.sidelinks button{border:0;background:none;display:block;padding:11px;text-align:left;font-size:12px;color:#455164;width:100%;border-radius:8px}.sidelinks button:hover{background:#f5f7fa}main{min-width:0;padding:34px 40px 60px}.content{max-width:850px;margin:0 auto}.crumb{color:#8590a1;font-size:11px;margin:0 0 28px}.crumb strong{color:#333f4f}.tag{display:inline-block;background:#e8efff;color:#3974eb;font-size:10px;font-weight:800;letter-spacing:.6px;padding:8px 12px;border-radius:8px}h1{font-size:clamp(27px,3.7vw,42px);line-height:1.14;letter-spacing:-1.5px;margin:17px 0 11px}p.intro{color:#758195;line-height:1.75;font-size:13px;max-width:670px;margin-bottom:20px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}.chip{background:white;border:1px solid #e7eaf0;padding:8px 10px;border-radius:8px;font-size:10px;color:#718094}.visual{border:1px solid #e4e8ef;background:#fff;border-radius:15px;overflow:hidden}.visualhead,.visualfoot{display:flex;justify-content:space-between;gap:8px;padding:13px 17px;font-size:11px;align-items:center}.visualhead{border-bottom:1px solid #e7eaf0}.visualfoot{border-top:1px solid #e7eaf0;color:#8490a0;font-size:10px}.visualarea{background:radial-gradient(ellipse at center,#e9efff,#f5f7fc 70%);min-height:235px;display:grid;place-items:center;padding:23px}.window{width:min(100%,535px);background:#fff;border:1px solid #d9e0ec;border-radius:12px;overflow:hidden;box-shadow:0 20px 40px #1d315c20}.windowbar{height:31px;background:#edf0f6;border-bottom:1px solid #dae1ec;display:flex;align-items:center;gap:5px;padding:0 13px}.dot{width:8px;height:8px;border-radius:50%;background:#ff625b}.dot:nth-child(2){background:#ffbf43}.dot:nth-child(3){background:#36c76f}.windowtitle{font-size:10px;color:#778398;margin:auto;padding-right:27px}.screens{min-height:170px;display:flex;align-items:center;justify-content:center;gap:16px}.monitor{background:linear-gradient(135deg,#192d65,#4779dc,#bdceec);width:190px;height:112px;border:6px solid #2b3445;border-radius:8px;display:grid;place-items:center;box-shadow:0 8px 15px #263b6125}.ipad{width:93px;height:128px;background:linear-gradient(140deg,#314e97,#8da9ec,#e5dafa);border:7px solid #293142;border-radius:15px;display:grid;place-items:center;box-shadow:0 8px 15px #263b6125}.screenlabel{color:white;text-shadow:0 1px 3px #0006;font-weight:700;font-size:10px}.arrow{font-size:25px;color:#4c7efa}.windowdetail{text-align:center;padding:0 10px 16px;color:#657186;font-size:10px}.flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;padding:25px 12px}.flownode{border:1px solid #dce3ed;border-radius:10px;padding:18px 12px;background:white;color:#4566a5;font-size:12px;font-weight:700}.flowarrow{color:#7c8aa4}h3{font-size:16px;letter-spacing:-.3px;margin:30px 0 15px}.steps{display:grid;gap:15px}.step{display:flex;align-items:flex-start;gap:13px;font-size:12px;line-height:1.75;color:#465266}.stepnum{height:26px;width:26px;flex:none;border-radius:8px;border:1px solid #e2e7ef;background:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;color:#8490a0}.codebox{background:#192436;color:#e6eefa;border-radius:11px;overflow:hidden;margin:12px 0}.codebar{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;font-size:10px;color:#aab9cf;border-bottom:1px solid #ffffff20}.copybtn{border:1px solid #ffffff40;background:#ffffff12;color:#fff;padding:6px 11px;border-radius:7px;font-size:11px}pre{margin:0;padding:17px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px}.tip{background:#edf4ff;border:1px solid #d8e6ff;color:#466083;border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.7;margin-top:22px}.check{border:1px solid #e2e7ef;background:#fff;padding:16px;border-radius:11px;display:flex;gap:11px;align-items:center;margin-top:22px;cursor:pointer;font-size:12px;font-weight:700}.check input{accent-color:#467df4;width:17px;height:17px;flex:none}.check small{display:block;font-weight:400;color:#8b97a6;margin-top:5px;font-size:10px}.pager{display:flex;justify-content:space-between;gap:10px;margin-top:26px}.btn{border:1px solid #dee5ef;background:#fff;color:#40506a;border-radius:9px;padding:12px 15px;font-weight:700;font-size:12px}.btn.primary{background:#457af5;border-color:#457af5;color:#fff}.btn:disabled{opacity:.35;cursor:default}.helpbottom{margin-top:26px;border-top:1px solid #e3e8ef;padding-top:17px;font-size:11px;color:#8490a1}.textbtn{border:0;background:none;color:#3974eb;font-weight:700;font-size:11px}.accordion{border:1px solid #e2e7ef;background:white;border-radius:10px;margin-bottom:10px;overflow:hidden}.accordion>button{width:100%;background:none;border:0;color:#354153;padding:16px;text-align:left;display:flex;justify-content:space-between;gap:12px;font-weight:700;font-size:12px}.answer{padding:0 16px 17px;line-height:1.75;color:#788599;font-size:12px}.overlay{display:none;position:fixed;inset:0;z-index:999;background:#10182887;align-items:center;justify-content:center;padding:20px}.overlay.open{display:flex}.modal{width:min(100%,510px);max-height:90vh;overflow:auto;background:white;border-radius:18px;padding:26px;box-shadow:0 20px 80px #0003}.modalhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.modal h2{margin:8px 0;font-size:23px;letter-spacing:-.5px}.modal p{font-size:12px;color:#8490a0;line-height:1.6}.close{border:0;background:#f3f5f8;border-radius:8px;padding:9px 12px}.field{width:100%;border:1px solid #dee5ef;border-radius:9px;padding:13px;font-size:12px;margin:8px 0 12px}.user{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid #e1e6ee;padding:12px;border-radius:10px;margin:8px 0}.email{overflow-wrap:anywhere;font-size:11px;font-weight:700}.status{font-size:10px;color:#258452;background:#e4f8eb;border-radius:20px;padding:4px 7px;display:inline-block;margin-top:6px}.status.off{color:#b25252;background:#ffebeb}.mobilemenu{display:none}@media(max-width:760px){.layout{grid-template-columns:1fr}aside{display:none;border-right:0;border-bottom:1px solid #e7eaf0}aside.open{display:flex}main{padding:26px 18px 45px}.top{padding:0 14px}.mobilemenu{display:inline-block}.brand{font-size:14px}.header-actions .outline:first-child{display:none}}@media(max-width:420px){.mark{margin-right:3px}.brand span{display:none}.monitor{width:140px;height:88px}.ipad{width:76px;height:106px}.screens{gap:8px}.arrow{font-size:18px}}
-</style>
-</head>
-<body>
-<header class="top"><div><button class="outline mobilemenu" id="menu">☰</button> <span class="brand"><span class="mark">◫</span>sidecar<span> / guide</span></span></div><div class="header-actions"><button class="outline" id="overviewBtn">⌂ Overview</button><button class="outline" id="adminBtn">♙ Manage access</button><span class="avatar">DE</span></div></header>
-<div class="layout"><aside id="sidebar"><div class="sidehead"><div class="eyebrow">Your learning guide</div><h2>Mac mini × iPad</h2><div class="muted small">Turn your iPad into your Mac mini's main display.</div><div class="progressmeta"><span>Course progress</span><span id="pct">0%</span></div><div class="track"><div class="fill" id="fill"></div></div><div class="muted small" id="count" style="margin-top:8px">0 of 6 chapters completed</div></div><div class="navlabel">COURSE CONTENT</div><nav id="nav" class="nav"></nav><div class="sidelinks"><button id="troubleBtn">ⓘ &nbsp; Troubleshooting</button><button id="faqBtn">ⓘ &nbsp; FAQ & Safety Notes</button><button id="courseBtn">⌂ &nbsp; Course Overview</button></div></aside><main><div class="content" id="content"></div></main></div>
-<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
-<script>
-const CLI='/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay';
-const chapters=[
-{name:'Before You Start',sub:'Requirements & setup',time:'5 min',title:'Everything you need to begin',desc:'Siapkan perangkat dan pahami cara kerja Sidecar sebelum memulai. Setup awal tetap memerlukan monitor atau TV HDMI sementara.',steps:['Siapkan Mac mini M4, iPad generasi ke-9, keyboard, mouse, serta monitor/TV HDMI sementara.','Gunakan Apple Account yang sama dengan autentikasi dua faktor aktif.','Aktifkan Wi-Fi, Bluetooth, dan Handoff. Siapkan kabel USB-C ke Lightning yang mendukung data.','Pastikan Mac sudah login ke desktop macOS selama pengujian.'],tip:'Sidecar adalah koneksi lokal, bukan remote desktop lintas internet. Automation saat login tidak dapat melewati login macOS atau FileVault.',check:'Saya sudah menyiapkan perangkat dan persyaratan.',visual:'device'},
-{name:'Connect Your iPad',sub:'Sidecar connection',time:'8 min',title:'Connect your iPad with Sidecar',desc:'Sebelum menambahkan automation, pastikan fitur Sidecar bawaan Apple sudah berjalan secara manual.',steps:['Sambungkan monitor HDMI ke Mac mini dan login ke desktop macOS.','Hubungkan iPad dengan kabel data. Jika muncul Trust This Computer, pilih Trust.','Pada Mac buka System Settings → Displays → Add Display (+), lalu pilih iPad.','Pastikan desktop Mac muncul di iPad. Gunakan Extend jika ingin layar terpisah, bukan Mirror.'],tip:'Jika Sidecar manual belum berhasil, perbaiki dulu. BetterDisplay, SSH, dan Shortcut tidak menyelesaikan masalah Sidecar dasar secara otomatis.',check:'Desktop Mac sudah muncul pada iPad melalui Sidecar.',visual:'device'},
-{name:'Configure BetterDisplay',sub:'Virtual & main display',time:'12 min',title:'Set up BetterDisplay',desc:'Buat Virtual Display cadangan, cek perintah CLI, lalu jadikan iPad sebagai Main Display.',steps:['Instal BetterDisplay dari situs resmi dan aktifkan Launch at Login.','Buat satu Virtual Display bernama Sidecar Backup. Pastikan muncul di macOS Displays.','Jalankan perintah pertama untuk menemukan nama atau UUID iPad.','Uji perintah koneksi, lalu pilih iPad sebagai Main Display lewat System Settings → Displays.','Untuk penggunaan CLI Main Display, verifikasi nama display yang sebenarnya di BetterDisplay.'],commands:[CLI+' get -sidecarList',CLI+' set -sidecarConnected=on -specifier="NAMA_IPAD_ANDA"'],tip:'Nama Sidecar dan nama display untuk perintah set-main dapat berbeda. Jangan menyalin UUID atau nama perangkat dari contoh.',check:'BetterDisplay dan Virtual Display berhasil; iPad dapat dijadikan Main Display.',visual:'device'},
-{name:'Make It Automatic',sub:'Automator & login items',time:'15 min',title:'Automate the connection',desc:'Konfigurasikan automation yang meminta koneksi Sidecar dan mengatur iPad menjadi Main Display setelah macOS login.',steps:['Pastikan Sidecar manual, BetterDisplay, dan Virtual Display sudah berjalan.','Buat runner script yang membuka BetterDisplay, meminta Sidecar, menunggu sampai iPad terlihat sebagai display, lalu mengatur Main Display.','Uji runner secara manual dengan HDMI masih terpasang, termasuk saat iPad tidak tersedia.','Buat Application di Automator dengan Run Shell Script yang menjalankan runner teruji.','Tambahkan aplikasi ke System Settings → General → Login Items & Extensions; uji dengan logout dan login.'],commands:[CLI+' set -main=on -name="NAMA_DISPLAY_IPAD_DI_BETTERDISPLAY"'],tip:'Penting: guidebook sumber belum menyertakan runner script lengkap yang siap instal. Baris CLI ini hanya perintah inti, bukan automation siap pakai.',check:'Automation berhasil diuji setelah login macOS.',visual:'flow'},
-{name:'One-Tap Connection',sub:'SSH & iPad Shortcut',time:'12 min',title:'Reconnect with a single tap',desc:'Gunakan Run Script over SSH di Shortcuts iPad untuk mengirim perintah koneksi ke Mac mini.',steps:['Pada Mac buka System Settings → General → Sharing → Remote Login. Izinkan hanya akun yang benar-benar digunakan.','Buka Shortcuts di iPad, buat shortcut Connect Sidecar.','Tambahkan Run Script over SSH. Isi host lokal, port 22 (jika tidak diubah), user, dan autentikasi.','Masukkan command BetterDisplay di Script dan uji dengan HDMI masih terpasang.','Gunakan Add to Home Screen untuk membuat ikon Shortcut.'],commands:[CLI+' set -sidecarConnected=on -specifier="NAMA_IPAD_ANDA"'],tip:'Shortcut mengirim permintaan koneksi, bukan jaminan Sidecar sudah tampil atau otomatis menjadi Main Display. Jangan publikasikan kredensial SSH.',check:'Shortcut di Home Screen sudah berhasil meminta koneksi Sidecar.',visual:'shortcut'},
-{name:'Go Headless',sub:'Wireless & final test',time:'10 min',title:'Your Mac mini. No monitor needed.',desc:'Pastikan iPad dapat digunakan sebagai main display dalam sesi Mac yang sudah login, termasuk setelah HDMI dilepas.',steps:['Dengan HDMI masih terhubung, pastikan Sidecar berhasil dan iPad menjadi Main Display.','Cabut kabel Lightning, lalu uji koneksi wireless dengan Wi-Fi, Bluetooth, dan Handoff tetap aktif.','Setelah stabil, simpan pekerjaan dan lepas HDMI. Cek posisi Dock dan jendela.','Putuskan Sidecar lalu coba sambungkan kembali lewat Shortcut saat Mac tetap login.','Uji logout/login dengan HDMI siap untuk pemulihan.'],tip:'Simpan HDMI sebagai recovery display. Login Items baru berjalan setelah sesi macOS dimulai; jangan menonaktifkan fitur keamanan hanya untuk memaksa headless login.',check:'Wireless, reconnect, dan pengujian tanpa HDMI telah berhasil.',visual:'device'}
-];
-const troubles=[['iPad tidak muncul di Displays','Periksa Apple Account, Wi-Fi, Bluetooth, Handoff, kompatibilitas, kabel data, dan Trust. Coba Sidecar manual terlebih dahulu.'],['Shortcut connection refused / timeout','Periksa Mac aktif, host/IP lokal, Remote Login, izin akun, firewall, dan jaringan. Jangan membuka SSH ke internet publik.'],['SSH sukses tetapi iPad tidak berubah','Pastikan sesi macOS sudah login, BetterDisplay aktif, dan Sidecar bisa terkoneksi manual.'],['iPad hanya menjadi layar kedua','Pilih iPad sebagai Main Display di System Settings → Displays dan uji ulang setelah HDMI dilepas.'],['Layar blank ketika HDMI dilepas','Sambungkan kembali HDMI, pulihkan display utama, lalu ulangi pengujian koneksi.'],['Mac tidak bisa diakses setelah restart','Login Items menunggu pengguna macOS login. Gunakan HDMI/monitor recovery untuk login.']];
-const faqs=[['Benarkah bisa tanpa monitor?','Pada konfigurasi yang berhasil diuji, bisa setelah setup dan selama pengguna sudah login ke sesi macOS. Tidak berlaku untuk layar boot atau login FileVault.'],['Bisa dari luar rumah?','Tidak melalui Sidecar lokal. Remote desktop lintas internet membutuhkan solusi yang berbeda.'],['Apa fungsi Virtual Display?','Cadangan pengelolaan tampilan saat headless; Virtual Display tidak otomatis memunculkan Mac di iPad tanpa Sidecar.'],['Apakah SSH harus pakai password?','Tidak. SSH key merupakan pilihan lain. Pastikan akses Remote Login dibatasi dan kredensial tidak dibagikan.']];
-const el=id=>document.getElementById(id);let page=0,view='chapter';const KEY='sidecar-guide-completed-v1';let completed=[];try{completed=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(completed))completed=[]}catch{}const finished=new Set(completed.filter(n=>Number.isInteger(n)&&n>=0&&n<6));let users=[{email:'demo@sidecarguide.test',active:true}];let openAccordion=-1;
-const escapeHTML=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function persist(){try{localStorage.setItem(KEY,JSON.stringify([...finished]))}catch{}}
-function renderNav(){const pct=Math.round(finished.size/6*100);el('pct').textContent=pct+'%';el('fill').style.width=pct+'%';el('count').textContent=finished.size+' of 6 chapters completed';el('nav').innerHTML=chapters.map((c,i)=>`<button class="navbutton ${page===i&&view==='chapter'?'active':''} ${finished.has(i)?'done':''}" data-page="${i}"><span class="navnum">${finished.has(i)?'✓':String(i+1).padStart(2,'0')}</span><span><span class="navtitle">${c.name}</span><div class="navsub">${c.sub}</div></span></button>`).join('')}
-function visual(c){let body=c.visual==='flow'?`<div class="flow"><div class="flownode">Log in</div><span class="flowarrow">→</span><div class="flownode">BetterDisplay</div><span class="flowarrow">→</span><div class="flownode">Wait for Sidecar</div><span class="flowarrow">→</span><div class="flownode">Set main</div></div>`:c.visual==='shortcut'?`<div class="window"><div class="windowbar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="windowtitle">Shortcuts • Visual Demo</span></div><div style="padding:22px 28px;line-height:2"><strong>Connect Sidecar</strong><div style="margin-top:10px;background:#e7efff;color:#2861cd;border-radius:9px;padding:10px 13px">↗ Run Script over SSH</div><span style="font-size:11px;color:#758195">Host: Mac local IP · Port: 22</span></div></div>`:`<div class="window"><div class="windowbar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="windowtitle">Display Setup • Visual Demo</span></div><div class="screens"><div class="monitor"><span class="screenlabel">Mac mini M4</span></div><div class="arrow">↔</div><div class="ipad"><span class="screenlabel">iPad 9</span></div></div><div class="windowdetail">${c.name==='Go Headless'?'Wireless Sidecar · Main Display':c.name==='Configure BetterDisplay'?'BetterDisplay · Virtual Display':'System Settings · Sidecar'}</div></div>`;return `<div class="visual"><div class="visualhead"><strong>◧ &nbsp; Visual walkthrough</strong><span class="muted">Illustrative UI</span></div><div class="visualarea">${body}</div><div class="visualfoot"><span>▧ Placeholder — replace with real Mac/iPad screenshots</span><span>Chapter ${page+1}/06</span></div></div>`}
-function command(text){return `<div class="codebox"><div class="codebar"><span>⌘ &nbsp; Terminal / BetterDisplay</span><button class="copybtn" data-copy="${escapeHTML(text)}">▢ Copy command</button></div><pre>${escapeHTML(text)}</pre></div>`}
-function renderChapter(){view='chapter';renderNav();const c=chapters[page];el('content').innerHTML=`<div class="crumb">Sidecar Guide &nbsp; › &nbsp; <strong>${c.name}</strong></div><span class="tag">✦ CHAPTER ${String(page+1).padStart(2,'0')} / 06</span><h1>${c.title}</h1><p class="intro">${c.desc}</p><div class="chips"><span class="chip">◷ ${c.time} reading</span><span class="chip">▣ Mac mini M4 + iPad 9</span><span class="chip">${finished.has(page)?'✓ Completed':'○ In progress'}</span></div>${visual(c)}<h3>Follow these steps</h3><div class="steps">${c.steps.map((s,j)=>`<div class="step"><span class="stepnum">${j+1}</span><span>${escapeHTML(s)}</span></div>`).join('')}</div>${c.commands?.length?'<h3>Terminal commands</h3>'+c.commands.map(command).join(''):''}<div class="tip"><strong>ⓘ Good to know</strong><br>${escapeHTML(c.tip)}</div><label class="check"><input type="checkbox" id="check" ${finished.has(page)?'checked':''}><span>${escapeHTML(c.check)}<small>Centang setelah menyelesaikannya di perangkat asli.</small></span></label><div class="pager"><button class="btn" id="prev" ${page===0?'disabled':''}>← Previous</button><button class="btn primary" id="next">${page===5?'Review progress':'Next chapter →'}</button></div><div class="helpbottom">Need help? <button class="textbtn" id="lessonHelp">Open troubleshooting ↗</button></div>`;el('check').onchange=e=>{e.target.checked?finished.add(page):finished.delete(page);persist();renderChapter()};el('prev').onclick=()=>{page=Math.max(0,page-1);renderChapter()};el('next').onclick=()=>{if(page===5)renderOverview();else{page++;renderChapter()}};el('lessonHelp').onclick=()=>renderAccordion('Troubleshooting',troubles)}
-function renderOverview(){view='overview';renderNav();const pct=Math.round(finished.size/6*100);el('content').innerHTML=`<div class="crumb">Your learning space &nbsp; › &nbsp; Overview</div><span class="tag">YOUR COURSE</span><h1>Make more of your Mac mini.</h1><p class="intro">Learn to use iPad 9 as a Mac mini M4 display with Sidecar, BetterDisplay, automation, and an iPad Shortcut.</p><div class="visual" style="padding:26px"><div class="eyebrow">Your progress</div><div style="font-size:44px;letter-spacing:-2px;font-weight:800;margin:15px 0">${pct}%</div><div class="track"><div class="fill" style="width:${pct}%"></div></div><p class="small muted">${finished.size} of 6 chapters completed</p><button class="btn primary" id="resume">Continue learning →</button></div><h3>Course curriculum</h3>${chapters.map((c,i)=>`<button class="navbutton" style="border:1px solid #e2e7ef;background:white;margin:9px 0;padding:16px" data-page="${i}"><span class="navnum">${finished.has(i)?'✓':String(i+1).padStart(2,'0')}</span><span style="flex:1"><span class="navtitle">${c.name}</span><div class="navsub">${c.sub}</div></span><span class="small muted">${c.time} &nbsp; →</span></button>`).join('')}`;el('resume').onclick=()=>{page=[0,1,2,3,4,5].find(i=>!finished.has(i))??5;renderChapter()}}
-function renderAccordion(title,data){view='help';renderNav();openAccordion=-1;el('content').innerHTML=`<div class="crumb">Help center &nbsp; › &nbsp; ${title}</div><span class="tag">HELP & SUPPORT</span><h1>${title}</h1><p class="intro">${title==='Troubleshooting'?'Pilih masalah yang dialami untuk melihat langkah pengecekan pertama.':'Jawaban dan batasan penting yang harus dipahami sebelum menjalankan setup.'}</p><div id="accordion"></div><button class="btn" id="backLesson" style="margin-top:20px">← Back to lesson</button>`;function draw(){el('accordion').innerHTML=data.map(([q,a],i)=>`<div class="accordion"><button data-toggle="${i}">${escapeHTML(q)} <span>${openAccordion===i?'−':'+'}</span></button>${openAccordion===i?`<div class="answer">${escapeHTML(a)}</div>`:''}</div>`).join('')}draw();el('backLesson').onclick=renderChapter;el('accordion').onclick=e=>{const b=e.target.closest('[data-toggle]');if(!b)return;const n=Number(b.dataset.toggle);openAccordion=openAccordion===n?-1:n;draw()}}
-function openModal(content){el('modal').innerHTML=content;el('overlay').classList.add('open')}
-function closeModal(){el('overlay').classList.remove('open')}
-function admin(){openModal(`<div class="modalhead"><div><div class="eyebrow">ADMIN CONSOLE · DEMO</div><h2>Manage access</h2><p>Invite-only private guide — interface prototype.</p></div><button class="close" id="closeModal">✕</button></div><div class="tip" style="margin:10px 0 20px"><strong>Demo only:</strong> this static website does not secure content, verify identity, or send invitations. Do not use as a paid private portal before backend authentication and protected content are implemented.</div><label class="small"><strong>Invite a user (simulation)</strong></label><input type="email" class="field" id="emailInput" placeholder="name@example.com"><button class="btn primary" style="width:100%" id="invite">+ Add demo access</button><h3>Allowed users</h3><div id="users"></div><button class="btn" id="signPreview" style="width:100%;margin-top:20px">Preview member sign-in →</button>`);el('closeModal').onclick=closeModal;el('invite').onclick=()=>{const input=el('emailInput'),email=input.value.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){input.style.borderColor='#df5959';return}let u=users.find(x=>x.email===email);if(u)u.active=true;else users.push({email,active:true});input.value='';input.style.borderColor='';renderUsers()};el('signPreview').onclick=signIn;renderUsers()}
-function renderUsers(){el('users').innerHTML=users.map((u,i)=>`<div class="user"><div><div class="email">${escapeHTML(u.email)}</div><span class="status ${u.active?'':'off'}">${u.active?'Active':'Revoked'}</span></div><button class="textbtn" data-user="${i}">${u.active?'Revoke':'Restore'}</button></div>`).join('');el('users').onclick=e=>{const b=e.target.closest('[data-user]');if(!b)return;users[Number(b.dataset.user)].active=!users[Number(b.dataset.user)].active;renderUsers()}}
-function signIn(){openModal(`<div class="modalhead"><div><div class="eyebrow">PRIVATE ACCESS · DEMO</div><h2>Welcome back.</h2><p>See how an email allowlist would work.</p></div><button class="close" id="closeModal">✕</button></div><input type="email" class="field" id="signEmail" placeholder="name@example.com"><button class="btn primary" style="width:100%" id="verify">Continue with email →</button><div id="signResult" class="small muted" style="margin-top:13px"></div><p>No real sign-in occurs and no email is sent.</p>`);el('closeModal').onclick=closeModal;el('verify').onclick=()=>{const email=el('signEmail').value.trim().toLowerCase();const active=users.some(x=>x.email===email&&x.active);el('signResult').textContent=active?'Email ada di allowlist demo. Production harus mengirim magic link dan memverifikasi sesi di server.':'Email tidak memiliki akses aktif di allowlist demo.'}}
-function copyCommand(cmd,button){const fallback=()=>{const area=document.createElement('textarea');area.value=cmd;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();let ok=false;try{ok=document.execCommand('copy')}catch{}area.remove();if(!ok)window.prompt('Copy the command:',cmd);return ok};if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(cmd).then(()=>{button.textContent='✓ Copied';setTimeout(()=>button.textContent='▢ Copy command',1800)}).catch(()=>{fallback();button.textContent='✓ Copy attempted'})}else{fallback();button.textContent='✓ Copy attempted'}}
-el('nav').onclick=e=>{const b=e.target.closest('[data-page]');if(!b)return;page=Number(b.dataset.page);renderChapter();el('sidebar').classList.remove('open')};el('content').addEventListener('click',e=>{const p=e.target.closest('[data-page]');if(p){page=Number(p.dataset.page);renderChapter();return}const b=e.target.closest('[data-copy]');if(b)copyCommand(b.dataset.copy,b)});el('overviewBtn').onclick=renderOverview;el('courseBtn').onclick=renderOverview;el('faqBtn').onclick=()=>renderAccordion('Frequently asked questions',faqs);el('troubleBtn').onclick=()=>renderAccordion('Troubleshooting',troubles);el('adminBtn').onclick=admin;el('menu').onclick=()=>el('sidebar').classList.toggle('open');el('overlay').onclick=e=>{if(e.target===el('overlay'))closeModal()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});renderChapter();
-</script>
-</body>
-</html>
+This file explains the V2 frontend behavior and the constraints an AI
+coding agent must preserve when evolving the prototype into the paid
+production product.
 
+## Current V2 architecture
+
+The current prototype intentionally remains a single static `index.html`
+so it can replace the existing GitHub Pages prototype immediately.
+
+It contains:
+
+-   responsive app shell
+-   desktop sidebar
+-   mobile drawer
+-   six chapters
+-   Overview
+-   Troubleshooting
+-   FAQ
+-   local progress
+-   copyable terminal commands
+-   screenshot placeholders
+-   explicit access-status placeholder
+
+This is **not yet the final production security architecture**.
+
+## Layout contract
+
+Desktop:
+
+``` text
+100dvh application
+├── fixed-height header
+└── remaining viewport
+    ├── sidebar
+    │   ├── internally scrollable chapter area
+    │   └── bottom utilities
+    └── independently scrollable main guide
 ```
+
+Do not reintroduce body-level scrolling that causes the bottom sidebar
+utilities to disappear below the viewport.
+
+Mobile:
+
+``` text
+Header
+├── Menu button
+└── Access status
+
+Guide content
+
+Sidebar → off-canvas drawer
+```
+
+## Guide structure
+
+``` text
+Overview
+
+01 Before You Start
+02 Connect Your iPad
+03 Configure BetterDisplay
+04 Make It Automatic
+05 One-Tap Connection
+06 Go Headless
+
+Troubleshooting
+FAQ & Safety Notes
+```
+
+## Content rules
+
+### Copyable
+
+Keep these selectable/copyable:
+
+-   Terminal commands.
+-   SSH commands.
+-   Automation scripts.
+-   Required configuration/path values.
+
+### Casual copy deterrence only
+
+Guide prose may use `user-select: none`.
+
+This is not DRM or authorization.
+
+Never corrupt commands with invisible characters or watermarks.
+
+## Progress
+
+Current prototype:
+
+``` text
+localStorage key:
+sidecar-guide-v2-progress
+```
+
+Production must migrate progress to authenticated Supabase records.
+
+Progress and entitlement are separate concepts.
+
+Progress must never grant paid access.
+
+## Screenshot placeholders
+
+Replace `.shot` placeholders with real screenshots supplied and tested
+by the product owner.
+
+Recommended future structure:
+
+``` text
+assets/
+  chapter-01/
+  chapter-02/
+  chapter-03/
+  chapter-04/
+  chapter-05/
+  chapter-06/
+```
+
+Avoid publishing personal Apple Account/email, serial number, SSH
+credential, or unnecessary device identifiers.
+
+## Access button
+
+The current Access button intentionally displays a message explaining
+that the GitHub Pages build is not protected.
+
+Do not replace it with fake JavaScript authentication.
+
+Production flow:
+
+``` text
+Visitor
+   ↓
+Supabase Auth
+   ↓
+Check entitlement
+   ├── inactive → Get Access
+   └── active → Private Guide
+```
+
+## Production database direction
+
+Conceptual tables:
+
+``` text
+profiles
+entitlements
+guide_progress
+devices_or_sessions
+```
+
+Entitlement statuses:
+
+``` text
+pending
+active
+refunded
+revoked
+```
+
+Use Supabase RLS.
+
+Users must not be able to grant themselves `active` entitlement from
+browser code.
+
+## Payment direction
+
+Initial provider:
+
+``` text
+Lemon Squeezy
+```
+
+Expected production flow:
+
+``` text
+Get Access
+   ↓
+Checkout
+   ↓
+Payment provider
+   ↓
+Verified + idempotent webhook
+   ↓
+Supabase entitlement
+   ↓
+Private guide unlocked
+```
+
+Future architecture should allow Lynk/QRIS without rewriting guide
+authorization.
+
+Keep provider-specific code separate from entitlement logic.
+
+## Watermark direction
+
+After authentication, paid guide/screenshots may display a subtle
+watermark such as:
+
+``` text
+ar***@gmail.com
+SG-000142
+```
+
+Never watermark exact commands/scripts.
+
+Watermark is a leak deterrent, not screenshot prevention.
+
+## Session direction
+
+Business rule:
+
+``` text
+1 purchase = 1 account
+```
+
+Preferred MVP behavior may use one active session/device at a time, but
+implementation must remain recoverable for legitimate users changing
+devices.
+
+Avoid invasive fingerprinting.
+
+## Security rules
+
+Production must have:
+
+-   Supabase RLS.
+-   Server-side entitlement validation.
+-   Protected premium content.
+-   Server-only service-role/payment secrets.
+-   Verified webhook signatures.
+-   Idempotent webhook handling.
+-   Safe refund/revocation flow.
+-   No secrets committed to Git.
+-   No false claims that screenshots can be prevented.
+
+## Technical content caveats
+
+Sidecar is a local display solution, not remote desktop.
+
+Login Items/Automator do not bypass FileVault or the macOS login screen.
+
+The full reconnect automation runner must not be marked verified until
+the owner tests it.
+
+## Agent implementation order
+
+``` text
+1. Preserve/QA this V2 responsive experience.
+2. Integrate owner-approved screenshots and final content.
+3. Refactor to maintainable production architecture if needed.
+4. Add Supabase.
+5. Add database migrations + RLS.
+6. Add Auth.
+7. Add entitlement-protected guide delivery.
+8. Move progress to backend.
+9. Add approved session/device policy.
+10. Add watermark.
+11. Deploy production app to Cloudflare.
+12. Add Lemon Squeezy checkout.
+13. Add verified webhook.
+14. Handle refund/revocation.
+15. Run responsive/security/payment/end-to-end QA.
+```
+
+## Do not do
+
+-   Do not put premium content behind CSS-only hiding.
+-   Do not call GitHub Pages private.
+-   Do not put payment secrets in frontend JavaScript.
+-   Do not disable Copy Command.
+-   Do not invent untested screenshots.
+-   Do not claim the setup bypasses FileVault.
+-   Do not claim screenshots are impossible.
+-   Do not add multiple payment gateways before the first provider is
+    stable.
+
+## Definition of frontend V2 complete
+
+-   desktop viewport/sidebar bug fixed
+-   mobile drawer works
+-   six chapters work
+-   Overview/Troubleshooting/FAQ work
+-   progress persists
+-   command copy works
+-   command text remains selectable
+-   no critical horizontal overflow
+-   screenshot slots ready
+-   access placeholder clearly marked as non-production
+
+## Definition of final production complete
+
+Frontend completion is not final product completion.
+
+Final production additionally requires:
+
+-   Supabase Auth
+-   RLS
+-   entitlement
+-   protected premium delivery
+-   backend progress
+-   session policy
+-   watermark
+-   Lemon Squeezy checkout
+-   verified/idempotent webhook
+-   refund/revoke
+-   Cloudflare production deployment
+-   domain/HTTPS
+-   end-to-end non-admin customer test
