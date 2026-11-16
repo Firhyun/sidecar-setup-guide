@@ -26,3 +26,5 @@ node_modules/
 .sass-cache/
 *.log
 Thumbs.db
+backup_v1/
+v2_extracted/

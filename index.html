@@ -1,16 +1,1113 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sidecar Setup Guide</title><style>
-:root{--bg:#fff;--sub:#f7f7f5;--ink:#171717;--muted:#626262;--ter:#929292;--line:#e7e7e5;--strong:#d2d2cf;--r:16px;--header:68px;--side:286px}*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}button{font:inherit}.app{height:100dvh;overflow:hidden}.top{height:var(--header);display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(18px);position:relative;z-index:30}.brand{font-weight:650;letter-spacing:-.02em}.brand span{color:var(--ter);font-weight:500}.topright{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}.shell{height:calc(100dvh - var(--header));display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:0}.side{height:100%;min-height:0;border-right:1px solid var(--line);background:#fbfbfa;display:flex;flex-direction:column;overflow:hidden}.side-scroll{overflow:auto;min-height:0;padding:28px 18px 16px}.side-foot{padding:12px 18px 18px;border-top:1px solid var(--line)}.label{font-size:11px;text-transform:uppercase;letter-spacing:.11em;color:var(--ter);font-weight:650}.side h2{font-size:19px;letter-spacing:-.035em;margin:9px 0 5px}.small{font-size:12px;color:var(--ter);line-height:1.5}.progress{margin:24px 0}.prow{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}.track{height:4px;background:#e9e9e6;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--ink);width:0}.nav{display:grid;gap:2px;margin-top:22px}.nav button,.util{border:0;background:transparent;text-align:left;cursor:pointer;border-radius:10px}.nav button{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:9px 8px;color:var(--muted)}.nav button:hover,.nav button.active,.util:hover{background:#efefec;color:var(--ink)}.n{font-size:11px;color:var(--ter);padding-top:2px}.nt{font-size:12.5px;font-weight:600;color:inherit}.ns{font-size:10.5px;color:var(--ter);margin-top:2px}.util{width:100%;padding:9px 8px;font-size:12.5px;color:var(--muted)}.main{height:100%;min-height:0;overflow:auto}.content{width:min(900px,calc(100% - 64px));margin:auto;padding:72px 0 120px}.page{display:none}.page.active{display:block}.eyebrow{font-size:12px;color:var(--ter);font-weight:600;letter-spacing:.06em;text-transform:uppercase}.hero{padding-bottom:56px;border-bottom:1px solid var(--line)}h1{font-size:clamp(44px,5.5vw,68px);line-height:1.01;letter-spacing:-.055em;margin:15px 0 20px;font-weight:650;max-width:780px}.lead{font-size:19px;line-height:1.55;color:var(--muted);max-width:680px;margin:0}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.chip{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--muted)}.section{padding:64px 0;border-bottom:1px solid var(--line)}.stepmeta{font-size:12px;color:var(--ter);margin-bottom:12px}.section h2{font-size:30px;line-height:1.15;letter-spacing:-.035em;margin:0 0 14px;font-weight:650}.section p,.section li{font-size:16px;line-height:1.7;color:var(--muted)}.section ol,.section ul{padding-left:22px}.visual{margin:30px 0 4px;background:var(--sub);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 8px 32px rgba(0,0,0,.035)}.visual img{width:100%;height:auto;display:block;border-radius:10px}.visual figcaption{font-size:11px;color:var(--ter);padding:11px 4px 1px;line-height:1.5}.code{margin:24px 0;background:#171717;color:#f8f8f6;border-radius:14px;overflow:hidden}.codehead{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-bottom:1px solid #303030;font-size:11px;color:#aaa}.copy{border:1px solid #424242;background:#242424;color:#fff;border-radius:8px;padding:6px 9px;cursor:pointer}.code pre{margin:0;padding:17px;overflow:auto;white-space:pre;font:12.5px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;user-select:text}.note{margin:24px 0;padding:16px 18px;background:var(--sub);border-radius:12px;font-size:13px;line-height:1.65;color:var(--muted)}.note strong{color:var(--ink)}.complete{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:34px}.check{font-size:13px;font-weight:600;display:flex;gap:9px;align-items:center}.check input{width:17px;height:17px}.btn{border:1px solid var(--line);background:#fff;border-radius:12px;min-height:44px;padding:10px 15px;cursor:pointer;font-size:13px;font-weight:600}.btn.primary{background:#191919;color:#fff;border-color:#191919}.faq{border-top:1px solid var(--line)}details{border-bottom:1px solid var(--line);padding:20px 0}summary{cursor:pointer;font-weight:600;font-size:15px}details p{margin-bottom:0}.menu{display:none}.overlay{display:none}.guidecopy{user-select:none}.code,.code *{user-select:text}
-@media(max-width:800px){:root{--header:62px}.top{padding:0 18px}.menu{display:inline-flex}.shell{display:block}.side{position:fixed;z-index:50;top:var(--header);bottom:0;left:0;width:min(86vw,310px);height:auto;transform:translateX(-104%);transition:.2s;box-shadow:20px 0 60px rgba(0,0,0,.12)}.side.open{transform:none}.overlay.show{display:block;position:fixed;z-index:40;inset:var(--header) 0 0;background:rgba(0,0,0,.2)}.main{height:calc(100dvh - var(--header))}.content{width:calc(100% - 40px);padding:48px 0 90px}h1{font-size:42px}.hero{padding-bottom:44px}.section{padding:48px 0}.section h2{font-size:27px}.visual{margin-left:-6px;margin-right:-6px;padding:8px}.topright .hide{display:none}}
-</style></head><body><div class="app"><header class="top"><div style="display:flex;gap:12px;align-items:center"><button class="btn menu" id="menu">☰</button><div class="brand">sidecar <span>/ setup guide</span></div></div><div class="topright"><span class="hide">Mac mini M4 × iPad 9</span><button class="btn" data-go="overview">Overview</button></div></header><div class="shell"><aside class="side" id="side"><div class="side-scroll"><div class="label">Interactive guide</div><h2>iPad as Main Display</h2><div class="small">Tested workflow for Mac mini M4 + iPad 9.</div><div class="progress"><div class="prow"><span>Progress</span><span id="pct">0%</span></div><div class="track"><div class="fill" id="fill"></div></div><div class="small" id="ptext" style="margin-top:8px">0 of 6 chapters</div></div><nav class="nav" id="nav"></nav></div><div class="side-foot"><button class="util" data-go="troubleshoot">Troubleshooting</button><button class="util" data-go="faq">FAQ & safety</button><button class="util" data-go="overview">Course overview</button></div></aside><div class="overlay" id="overlay"></div><main class="main" id="main"><div class="content guidecopy">
-<section class="page active" id="overview"><div class="hero"><div class="eyebrow">Sidecar Setup Guide · V2</div><h1>Use your iPad as the main display for Mac mini.</h1><p class="lead">A focused, tested workflow using Sidecar, BetterDisplay, a Virtual Display, Login Items, SSH, and an iPad Shortcut.</p><div class="chips"><span class="chip">Mac mini M4</span><span class="chip">iPad 9 · Lightning</span><span class="chip">6 chapters</span><span class="chip">Local setup</span></div></div><div class="section"><div class="stepmeta">Before you begin</div><h2>Keep HDMI available until the final test.</h2><p>Start with a normal monitor connected. This guide is for a local Sidecar workflow after macOS login—it is not remote desktop and it does not bypass FileVault or the login screen.</p><div class="note"><strong>What you will set up:</strong> Sidecar → BetterDisplay → one Virtual Display → tested CLI commands → Login Item automation → Remote Login → iPad Shortcut → final headless test.</div><div class="complete"><span></span><button class="btn primary" data-go="ch1">Start guide →</button></div></div></section>
-<section class="page" id="ch1"><div class="hero"><div class="eyebrow">01 · Before You Start</div><h1>Start from a setup you can recover.</h1><p class="lead">Use HDMI first, check the Sidecar prerequisites, and prove that the iPad can display the Mac before adding automation.</p></div><div class="section"><div class="stepmeta">Step 01</div><h2>Connect the Mac mini to a temporary HDMI display.</h2><ol><li>Connect a monitor or TV through HDMI.</li><li>Connect keyboard and mouse, then log in to macOS.</li><li>Leave HDMI connected throughout setup and testing.</li></ol></div><div class="section"><div class="stepmeta">Step 02</div><h2>Check the Sidecar prerequisites.</h2><p>Use the same Apple Account with two-factor authentication, enable Wi-Fi, Bluetooth, and Handoff, and keep the devices nearby. For the first wired test, use a USB-C to Lightning cable that supports data.</p><div class="note"><strong>Stop here if manual Sidecar fails.</strong> SSH, BetterDisplay, and the Shortcut will not fix an underlying Sidecar connection problem.</div><div class="complete"><label class="check"><input type="checkbox" data-done="ch1"> Chapter tested</label><button class="btn primary" data-go="ch2">Continue →</button></div></div></section>
-<section class="page" id="ch2"><div class="hero"><div class="eyebrow">02 · Connect Your iPad</div><h1>Prove Sidecar works manually.</h1><p class="lead">This is the baseline. The iPad must show the Mac desktop reliably before the workflow becomes automated.</p></div><div class="section"><div class="stepmeta">Step 03</div><h2>Add the iPad from macOS Displays.</h2><ol><li>Open <strong>System Settings → Displays</strong>.</li><li>Choose <strong>Add Display (+)</strong>.</li><li>Select your iPad under Mirror or extend to.</li><li>Confirm the Mac desktop appears on the iPad and test moving a window.</li></ol><figure class="visual"><img src="image-1-sidecar.png" alt="macOS Displays showing iPad in Add Display menu"><figcaption>System Settings → Displays → Add Display → choose the iPad.</figcaption></figure><div class="complete"><label class="check"><input type="checkbox" data-done="ch2"> Manual Sidecar works</label><button class="btn primary" data-go="ch3">Continue →</button></div></div></section>
-<section class="page" id="ch3"><div class="hero"><div class="eyebrow">03 · Configure BetterDisplay</div><h1>Create the display layer for headless use.</h1><p class="lead">Install BetterDisplay, keep one Virtual Display as a backup, then test the Sidecar CLI commands directly on the Mac.</p></div><div class="section"><div class="stepmeta">Step 04–05</div><h2>Install BetterDisplay and create one Virtual Display.</h2><p>Enable BetterDisplay at login. In BetterDisplay, create a single Virtual Screen and use the iPad-oriented aspect ratio when appropriate for your setup. Keep only one backup display to avoid confusion.</p><figure class="visual"><img src="image-2-betterdisplay.png" alt="BetterDisplay create virtual screen flow"><figcaption>BetterDisplay → Create New Virtual Screen → choose the desired pre-configured aspect ratio.</figcaption></figure></div><div class="section"><div class="stepmeta">Step 06</div><h2>Find the iPad name recognized by Sidecar.</h2><div class="code"><div class="codehead"><span>Terminal</span><button class="copy">Copy</button></div><pre><code>/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay get -sidecarList</code></pre></div><p>Use the exact name or UUID returned on your Mac. Do not copy another person's device identifier.</p></div><div class="section"><div class="stepmeta">Step 07</div><h2>Test the Sidecar connection from BetterDisplay.</h2><div class="code"><div class="codehead"><span>Terminal</span><button class="copy">Copy</button></div><pre><code>/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay set -sidecarConnected=on -specifier="NAMA_IPAD_ANDA"</code></pre></div><div class="note"><strong>Then verify visually.</strong> A successful command return does not necessarily mean the iPad has finished connecting.</div><div class="complete"><label class="check"><input type="checkbox" data-done="ch3"> BetterDisplay tested</label><button class="btn primary" data-go="ch4">Continue →</button></div></div></section>
-<section class="page" id="ch4"><div class="hero"><div class="eyebrow">04 · Make It Automatic</div><h1>Run the reconnect workflow after login.</h1><p class="lead">Automation belongs after the manual workflow is proven. It should connect Sidecar, wait for the display, then set the verified iPad display as Main Display.</p></div><div class="section"><div class="stepmeta">Step 11</div><h2>Prepare and test the custom automation on the Mac.</h2><p>The runner should make sure BetterDisplay is available, request the correct Sidecar connection, wait until the iPad appears as a display, and only then set it as Main Display.</p><div class="note"><strong>Do not publish two CLI lines as a complete installer.</strong> The reconnect runner must be tested as a complete workflow on the target Mac.</div></div><div class="section"><div class="stepmeta">Step 12</div><h2>Add the tested automation to Open at Login.</h2><ol><li>Save the tested automation as an app/workflow.</li><li>Open <strong>System Settings → General → Login Items & Extensions</strong>.</li><li>Add the automation under <strong>Open at Login</strong>.</li><li>Logout and login again while HDMI is still connected.</li></ol><figure class="visual"><img src="image-3-login-item.png" alt="macOS Login Items setup"><figcaption>General → Login Items & Extensions → add the tested Sidecar automation to Open at Login.</figcaption></figure><div class="complete"><label class="check"><input type="checkbox" data-done="ch4"> Login automation tested</label><button class="btn primary" data-go="ch5">Continue →</button></div></div></section>
-<section class="page" id="ch5"><div class="hero"><div class="eyebrow">05 · One-Tap Connection</div><h1>Reconnect Sidecar from the iPad.</h1><p class="lead">Enable SSH only for the intended Mac user, then create a Shortcut that runs the tested BetterDisplay connection command.</p></div><div class="section"><div class="stepmeta">Step 09</div><h2>Enable Remote Login on the Mac.</h2><ol><li>Open <strong>System Settings → General → Sharing</strong>.</li><li>Turn on <strong>Remote Login</strong>.</li><li>Prefer <strong>Only these users</strong> and allow only the account you need.</li></ol><figure class="visual"><img src="image-4-remote-login.png" alt="macOS Sharing Remote Login enabled"><figcaption>General → Sharing → Remote Login. Keep access limited to the required user.</figcaption></figure><div class="note"><strong>Security:</strong> do not port-forward SSH to the public internet for this guide. Keep hostnames, IPs, and credentials out of public screenshots.</div></div><div class="section"><div class="stepmeta">Step 14 · 1/3</div><h2>Create a new Shortcut.</h2><p>Open Shortcuts on the iPad and tap the <strong>+</strong> button to create a new Shortcut.</p><figure class="visual"><img src="image-5-shortcut-add.png" alt="iPad Shortcuts plus button"><figcaption>Shortcuts → All Shortcuts → tap +.</figcaption></figure></div><div class="section"><div class="stepmeta">Step 14 · 2/3</div><h2>Add “Run Script Over SSH”.</h2><p>Search for the SSH action and add <strong>Run Script Over SSH</strong>.</p><figure class="visual"><img src="image-6-shortcut-ssh.png" alt="iPad Shortcuts search Run Script Over SSH"><figcaption>Search actions → Run Script Over SSH.</figcaption></figure></div><div class="section"><div class="stepmeta">Step 14 · 3/3</div><h2>Enter the command and your Mac connection details.</h2><div class="code"><div class="codehead"><span>Shortcut script</span><button class="copy">Copy</button></div><pre><code>/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay set -sidecarConnected=on -specifier="NAMA_IPAD_ANDA"</code></pre></div><p>Set Host to the Mac's reachable local host/IP, Port to 22 unless changed, User to the macOS account, and configure authentication securely.</p><figure class="visual"><img src="image-7-shortcut-config.png" alt="Run Script Over SSH shortcut configuration"><figcaption>Run Script Over SSH → paste the tested command, then fill Host, Port, User, and authentication.</figcaption></figure><div class="complete"><label class="check"><input type="checkbox" data-done="ch5"> Shortcut tested</label><button class="btn primary" data-go="ch6">Continue →</button></div></div></section>
-<section class="page" id="ch6"><div class="hero"><div class="eyebrow">06 · Go Headless</div><h1>Remove HDMI only after every layer works.</h1><p class="lead">Test the wired-to-wireless transition, reconnect behavior, and the complete workflow while a recovery monitor is still nearby.</p></div><div class="section"><div class="stepmeta">Step 13</div><h2>Test Lightning → wireless Sidecar.</h2><ol><li>Connect the iPad with a data-capable USB-C to Lightning cable.</li><li>Confirm Sidecar and Main Display behavior.</li><li>Keep Wi-Fi, Bluetooth, and Handoff on, then disconnect the cable.</li><li>Confirm wireless Sidecar returns and remains usable.</li></ol></div><div class="section"><div class="stepmeta">Step 16</div><h2>Run the final test without HDMI.</h2><p>Only after the Mac is logged in, BetterDisplay is running, the Virtual Display is active, and the Shortcut works: save your work, disconnect HDMI, then test reconnecting Sidecar from the iPad.</p><div class="note"><strong>Recovery rule:</strong> keep HDMI available. Login Items run after login and do not solve FileVault/pre-login display access.</div><div class="complete"><label class="check"><input type="checkbox" data-done="ch6"> Final test passed</label><button class="btn primary" data-go="overview">Finish →</button></div></div></section>
-<section class="page" id="troubleshoot"><div class="hero"><div class="eyebrow">Help</div><h1>Troubleshooting.</h1><p class="lead">Debug the lowest layer first instead of changing several parts at once.</p></div><div class="section faq"><details><summary>iPad does not appear in Displays</summary><p>Check Apple Account, Wi-Fi, Bluetooth, Handoff, compatibility, distance, then retry with a data cable and Trust prompt.</p></details><details><summary>BetterDisplay sidecarList is empty</summary><p>Confirm BetterDisplay is running and first verify that normal macOS Sidecar works.</p></details><details><summary>Shortcut reports connection refused or timeout</summary><p>Check that the Mac is on and logged in, Remote Login is enabled, host/IP and user are correct, and the local network allows the connection.</p></details><details><summary>SSH succeeds but the iPad shows no Mac desktop</summary><p>SSH success is not Sidecar success. Run the BetterDisplay command locally on the Mac and verify Sidecar manually.</p></details><details><summary>Restart leaves you without a display</summary><p>Login Items wait until macOS login. Reconnect HDMI for recovery and log in normally.</p></details></div></section>
-<section class="page" id="faq"><div class="hero"><div class="eyebrow">Reference</div><h1>FAQ & safety.</h1></div><div class="section faq"><details><summary>Is this remote desktop?</summary><p>No. This workflow uses local Sidecar. Use a separate remote desktop solution for access across the internet.</p></details><details><summary>Can it bypass FileVault or the login screen?</summary><p>No. The described Login Item automation starts after the user session begins.</p></details><details><summary>Why use a Virtual Display?</summary><p>It acts as a backup display layer for the headless workflow. It does not itself send the Mac image to the iPad.</p></details><details><summary>Why are commands copyable?</summary><p>Because they are required tools. Protect access to the guide, not the commands legitimate buyers need to complete it.</p></details></div></section>
-</div></main></div></div><script>
-const chapters=[['ch1','01','Before You Start','Safe starting point'],['ch2','02','Connect Your iPad','Manual Sidecar'],['ch3','03','Configure BetterDisplay','Virtual display + CLI'],['ch4','04','Make It Automatic','Login automation'],['ch5','05','One-Tap Connection','SSH + Shortcut'],['ch6','06','Go Headless','Wireless + final test']];const key='sidecar-v2-progress';let done={};try{done=JSON.parse(localStorage.getItem(key)||'{}')}catch{};const nav=document.getElementById('nav'),main=document.getElementById('main'),side=document.getElementById('side'),overlay=document.getElementById('overlay');function draw(){nav.innerHTML='';chapters.forEach(c=>{let b=document.createElement('button');b.dataset.go=c[0];b.innerHTML=`<span class="n">${done[c[0]]?'✓':c[1]}</span><span><div class="nt">${c[2]}</div><div class="ns">${c[3]}</div></span>`;nav.appendChild(b)});let n=chapters.filter(c=>done[c[0]]).length,p=Math.round(n/6*100);pct.textContent=p+'%';fill.style.width=p+'%';ptext.textContent=`${n} of 6 chapters`}function close(){side.classList.remove('open');overlay.classList.remove('show')}function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('[data-go]').forEach(x=>x.classList.toggle('active',x.dataset.go===id));main.scrollTop=0;close();history.replaceState(null,'','#'+id)}document.addEventListener('click',e=>{let g=e.target.closest('[data-go]');if(g)return show(g.dataset.go);let c=e.target.closest('.copy');if(c){let t=c.closest('.code').querySelector('code').innerText;navigator.clipboard.writeText(t).then(()=>{c.textContent='Copied';setTimeout(()=>c.textContent='Copy',1200)})}});document.querySelectorAll('[data-done]').forEach(x=>{x.checked=!!done[x.dataset.done];x.onchange=()=>{done[x.dataset.done]=x.checked;localStorage.setItem(key,JSON.stringify(done));draw()}});menu.onclick=()=>{side.classList.add('open');overlay.classList.add('show')};overlay.onclick=close;draw();show(location.hash.slice(1)||'overview');
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sidecar Setup Guide</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --sub: #f7f7f5;
+      --ink: #171717;
+      --muted: #626262;
+      --ter: #929292;
+      --line: #e7e7e5;
+      --strong: #d2d2cf;
+      --r: 16px;
+      --header: 68px;
+      --side: 286px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top {
+      height: var(--header);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      position: relative;
+      z-index: 30;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      font-size: 15px;
+    }
+
+    .brand span {
+      color: var(--ter);
+      font-weight: 500;
+    }
+
+    .topright {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .shell {
+      height: calc(100dvh - var(--header));
+      display: grid;
+      grid-template-columns: var(--side) minmax(0, 1fr);
+      min-height: 0;
+      flex: 1;
+    }
+
+    .side {
+      height: 100%;
+      min-height: 0;
+      border-right: 1px solid var(--line);
+      background: #fbfbfa;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .side-scroll {
+      overflow-y: auto;
+      overflow-x: hidden;
+      min-height: 0;
+      padding: 28px 18px 16px;
+      flex: 1;
+    }
+
+    .side-foot {
+      padding: 12px 18px 18px;
+      border-top: 1px solid var(--line);
+      background: #fbfbfa;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--ter);
+      font-weight: 650;
+    }
+
+    .side h2 {
+      font-size: 19px;
+      letter-spacing: -0.035em;
+      margin: 9px 0 5px;
+      font-weight: 650;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--ter);
+      line-height: 1.5;
+    }
+
+    .progress {
+      margin: 24px 0;
+    }
+
+    .prow {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .track {
+      height: 4px;
+      background: #e9e9e6;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      background: var(--ink);
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    .nav {
+      display: grid;
+      gap: 2px;
+      margin-top: 22px;
+    }
+
+    .nav button, .util {
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .nav button {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      padding: 9px 8px;
+      color: var(--muted);
+      align-items: flex-start;
+    }
+
+    .nav button:hover, .nav button.active, .util:hover, .util.active {
+      background: #efefec;
+      color: var(--ink);
+    }
+
+    .n {
+      font-size: 11px;
+      color: var(--ter);
+      padding-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nav button.active .n {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .nt {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: inherit;
+      line-height: 1.35;
+    }
+
+    .ns {
+      font-size: 10.5px;
+      color: var(--ter);
+      margin-top: 2px;
+      line-height: 1.3;
+    }
+
+    .util {
+      width: 100%;
+      padding: 9px 8px;
+      font-size: 12.5px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .main {
+      height: 100%;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .content {
+      width: min(900px, calc(100% - 64px));
+      margin: auto;
+      padding: 72px 0 120px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      color: var(--ter);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      padding-bottom: 56px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      font-size: clamp(44px, 5.5vw, 68px);
+      line-height: 1.01;
+      letter-spacing: -0.055em;
+      margin: 15px 0 20px;
+      font-weight: 650;
+      max-width: 780px;
+    }
+
+    .lead {
+      font-size: 19px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .chip {
+      font-size: 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--muted);
+      background: var(--bg);
+    }
+
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stepmeta {
+      font-size: 12px;
+      color: var(--ter);
+      margin-bottom: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .section h2 {
+      font-size: 30px;
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      margin: 0 0 14px;
+      font-weight: 650;
+    }
+
+    .section p, .section li {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .section ol, .section ul {
+      padding-left: 22px;
+      margin: 16px 0;
+    }
+
+    .section li {
+      margin-bottom: 8px;
+    }
+
+    .visual {
+      margin: 32px 0 8px;
+      background: var(--sub);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.035);
+    }
+
+    .visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    .visual figcaption {
+      font-size: 11.5px;
+      color: var(--ter);
+      padding: 11px 4px 2px;
+      line-height: 1.5;
+    }
+
+    .code {
+      margin: 24px 0;
+      background: #171717;
+      color: #f8f8f6;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+    }
+
+    .codehead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid #303030;
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    .copy {
+      border: 1px solid #424242;
+      background: #242424;
+      color: #fff;
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 11.5px;
+      font-weight: 500;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .copy:hover {
+      background: #333333;
+      border-color: #555555;
+    }
+
+    .code pre {
+      margin: 0;
+      padding: 18px;
+      overflow-x: auto;
+      white-space: pre;
+      font: 12.5px/1.65 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      user-select: text !important;
+      -webkit-user-select: text !important;
+    }
+
+    .code pre code {
+      user-select: text !important;
+      -webkit-user-select: text !important;
+    }
+
+    .note {
+      margin: 24px 0;
+      padding: 16px 20px;
+      background: var(--sub);
+      border-radius: 12px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+
+    .note strong {
+      color: var(--ink);
+    }
+
+    .complete {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .check {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .check input {
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      accent-color: var(--ink);
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 12px;
+      min-height: 44px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn:hover {
+      background: #f7f7f5;
+    }
+
+    .btn.primary {
+      background: #191919;
+      color: #fff;
+      border-color: #191919;
+    }
+
+    .btn.primary:hover {
+      background: #333333;
+      border-color: #333333;
+    }
+
+    .faq {
+      border-top: 1px solid var(--line);
+    }
+
+    details {
+      border-bottom: 1px solid var(--line);
+      padding: 22px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15.5px;
+      letter-spacing: -0.01em;
+      outline: none;
+    }
+
+    details p {
+      margin: 12px 0 0;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .menu {
+      display: none;
+      padding: 8px 12px;
+      font-size: 18px;
+      line-height: 1;
+      min-height: 38px;
+    }
+
+    .overlay {
+      display: none;
+    }
+
+    .guidecopy {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .code, .code * {
+      user-select: text !important;
+      -webkit-user-select: text !important;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 800px) {
+      :root {
+        --header: 62px;
+      }
+
+      .top {
+        padding: 0 18px;
+      }
+
+      .menu {
+        display: inline-flex;
+      }
+
+      .shell {
+        display: block;
+      }
+
+      .side {
+        position: fixed;
+        z-index: 50;
+        top: var(--header);
+        bottom: 0;
+        left: 0;
+        width: min(86vw, 310px);
+        height: auto;
+        transform: translateX(-104%);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 20px 0 60px rgba(0, 0, 0, 0.12);
+      }
+
+      .side.open {
+        transform: none;
+      }
+
+      .overlay.show {
+        display: block;
+        position: fixed;
+        z-index: 40;
+        inset: var(--header) 0 0;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+      }
+
+      .main {
+        height: calc(100dvh - var(--header));
+      }
+
+      .content {
+        width: calc(100% - 40px);
+        padding: 48px 0 90px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .hero {
+        padding-bottom: 44px;
+      }
+
+      .section {
+        padding: 48px 0;
+      }
+
+      .section h2 {
+        font-size: 27px;
+      }
+
+      .visual {
+        margin-left: -6px;
+        margin-right: -6px;
+        padding: 8px;
+      }
+
+      .topright .hide {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div style="display:flex;gap:12px;align-items:center">
+      <button class="btn menu" id="menu" aria-label="Open Navigation">☰</button>
+      <div class="brand">sidecar <span>/ setup guide</span></div>
+    </div>
+    <div class="topright">
+      <span class="hide">Mac mini M4 × iPad 9</span>
+      <button class="btn" data-go="overview">Overview</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="side" id="side">
+      <div class="side-scroll">
+        <div class="label">Interactive guide</div>
+        <h2>iPad as Main Display</h2>
+        <div class="small">Tested workflow for Mac mini M4 + iPad 9.</div>
+        <div class="progress">
+          <div class="prow">
+            <span>Progress</span>
+            <span id="pct">0%</span>
+          </div>
+          <div class="track">
+            <div class="fill" id="fill"></div>
+          </div>
+          <div class="small" id="ptext" style="margin-top:8px">0 of 6 chapters</div>
+        </div>
+        <nav class="nav" id="nav"></nav>
+      </div>
+      <div class="side-foot">
+        <button class="util" data-go="troubleshoot">Troubleshooting</button>
+        <button class="util" data-go="faq">FAQ & safety</button>
+        <button class="util" data-go="overview">Course overview</button>
+      </div>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <main class="main" id="main">
+      <div class="content guidecopy">
+        <!-- OVERVIEW -->
+        <section class="page active" id="overview">
+          <div class="hero">
+            <div class="eyebrow">Sidecar Setup Guide · V2</div>
+            <h1>Use your iPad as the main display for Mac mini.</h1>
+            <p class="lead">A focused, tested workflow using Sidecar, BetterDisplay, a Virtual Display, Login Items, SSH, and an iPad Shortcut.</p>
+            <div class="chips">
+              <span class="chip">Mac mini M4</span>
+              <span class="chip">iPad 9 · Lightning</span>
+              <span class="chip">6 chapters</span>
+              <span class="chip">Local setup</span>
+            </div>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Before you begin</div>
+            <h2>Keep HDMI available until the final test.</h2>
+            <p>Start with a normal monitor connected. This guide is for a local Sidecar workflow after macOS login—it is not remote desktop and it does not bypass FileVault or the login screen.</p>
+            <div class="note">
+              <strong>What you will set up:</strong> Sidecar → BetterDisplay → one Virtual Display → tested CLI commands → Login Item automation → Remote Login → iPad Shortcut → final headless test.
+            </div>
+            <div class="complete">
+              <span></span>
+              <button class="btn primary" data-go="ch1">Start guide →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 01 -->
+        <section class="page" id="ch1">
+          <div class="hero">
+            <div class="eyebrow">01 · Before You Start</div>
+            <h1>Start from a setup you can recover.</h1>
+            <p class="lead">Use HDMI first, check the Sidecar prerequisites, and prove that the iPad can display the Mac before adding automation.</p>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 01</div>
+            <h2>Connect the Mac mini to a temporary HDMI display.</h2>
+            <ol>
+              <li>Connect a monitor or TV through HDMI.</li>
+              <li>Connect keyboard and mouse, then log in to macOS.</li>
+              <li>Leave HDMI connected throughout setup and testing.</li>
+            </ol>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 02</div>
+            <h2>Check the Sidecar prerequisites.</h2>
+            <p>Use the same Apple Account with two-factor authentication, enable Wi-Fi, Bluetooth, and Handoff, and keep the devices nearby. For the first wired test, use a USB-C to Lightning cable that supports data.</p>
+            <div class="note">
+              <strong>Stop here if manual Sidecar fails.</strong> SSH, BetterDisplay, and the Shortcut will not fix an underlying Sidecar connection problem.
+            </div>
+            <div class="complete">
+              <label class="check"><input type="checkbox" data-done="ch1"> Chapter tested</label>
+              <button class="btn primary" data-go="ch2">Continue →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 02 -->
+        <section class="page" id="ch2">
+          <div class="hero">
+            <div class="eyebrow">02 · Connect Your iPad</div>
+            <h1>Prove Sidecar works manually.</h1>
+            <p class="lead">This is the baseline. The iPad must show the Mac desktop reliably before the workflow becomes automated.</p>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 03</div>
+            <h2>Add the iPad from macOS Displays.</h2>
+            <ol>
+              <li>Open <strong>System Settings → Displays</strong>.</li>
+              <li>Choose <strong>Add Display (+)</strong>.</li>
+              <li>Select your iPad under Mirror or extend to.</li>
+              <li>Confirm the Mac desktop appears on the iPad and test moving a window.</li>
+            </ol>
+            <figure class="visual">
+              <img src="image-1-sidecar.png" alt="macOS Displays showing iPad in Add Display menu" loading="lazy">
+              <figcaption>System Settings → Displays → Add Display → choose the iPad.</figcaption>
+            </figure>
+            <div class="complete">
+              <label class="check"><input type="checkbox" data-done="ch2"> Manual Sidecar works</label>
+              <button class="btn primary" data-go="ch3">Continue →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 03 -->
+        <section class="page" id="ch3">
+          <div class="hero">
+            <div class="eyebrow">03 · Configure BetterDisplay</div>
+            <h1>Create the display layer for headless use.</h1>
+            <p class="lead">Install BetterDisplay, keep one Virtual Display as a backup, then test the Sidecar CLI commands directly on the Mac.</p>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 04–05</div>
+            <h2>Install BetterDisplay and create one Virtual Display.</h2>
+            <p>Enable BetterDisplay at login. In BetterDisplay, create a single Virtual Screen and use the iPad-oriented aspect ratio when appropriate for your setup. Keep only one backup display to avoid confusion.</p>
+            <figure class="visual">
+              <img src="image-2-betterdisplay.png" alt="BetterDisplay create virtual screen flow" loading="lazy">
+              <figcaption>BetterDisplay → Create New Virtual Screen → choose the desired pre-configured aspect ratio.</figcaption>
+            </figure>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 06</div>
+            <h2>Find the iPad name recognized by Sidecar.</h2>
+            <div class="code">
+              <div class="codehead">
+                <span>Terminal</span>
+                <button class="copy" type="button">Copy</button>
+              </div>
+              <pre><code>/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay get -sidecarList</code></pre>
+            </div>
+            <p>Use the exact name or UUID returned on your Mac. Do not copy another person's device identifier.</p>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 07</div>
+            <h2>Test the Sidecar connection from BetterDisplay.</h2>
+            <div class="code">
+              <div class="codehead">
+                <span>Terminal</span>
+                <button class="copy" type="button">Copy</button>
+              </div>
+              <pre><code>/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay set -sidecarConnected=on -specifier="NAMA_IPAD_ANDA"</code></pre>
+            </div>
+            <div class="note">
+              <strong>Then verify visually.</strong> A successful command return does not necessarily mean the iPad has finished connecting.
+            </div>
+            <div class="complete">
+              <label class="check"><input type="checkbox" data-done="ch3"> BetterDisplay tested</label>
+              <button class="btn primary" data-go="ch4">Continue →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 04 -->
+        <section class="page" id="ch4">
+          <div class="hero">
+            <div class="eyebrow">04 · Make It Automatic</div>
+            <h1>Run the reconnect workflow after login.</h1>
+            <p class="lead">Automation belongs after the manual workflow is proven. It should connect Sidecar, wait for the display, then set the verified iPad display as Main Display.</p>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 11</div>
+            <h2>Prepare and test the custom automation on the Mac.</h2>
+            <p>The runner should make sure BetterDisplay is available, request the correct Sidecar connection, wait until the iPad appears as a display, and only then set it as Main Display.</p>
+            <div class="note">
+              <strong>Do not publish two CLI lines as a complete installer.</strong> The reconnect runner must be tested as a complete workflow on the target Mac.
+            </div>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 12</div>
+            <h2>Add the tested automation to Open at Login.</h2>
+            <ol>
+              <li>Save the tested automation as an app/workflow.</li>
+              <li>Open <strong>System Settings → General → Login Items & Extensions</strong>.</li>
+              <li>Add the automation under <strong>Open at Login</strong>.</li>
+              <li>Logout and login again while HDMI is still connected.</li>
+            </ol>
+            <figure class="visual">
+              <img src="image-3-login-item.png" alt="macOS Login Items setup" loading="lazy">
+              <figcaption>General → Login Items & Extensions → add the tested Sidecar automation to Open at Login.</figcaption>
+            </figure>
+            <div class="complete">
+              <label class="check"><input type="checkbox" data-done="ch4"> Login automation tested</label>
+              <button class="btn primary" data-go="ch5">Continue →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 05 -->
+        <section class="page" id="ch5">
+          <div class="hero">
+            <div class="eyebrow">05 · One-Tap Connection</div>
+            <h1>Reconnect Sidecar from the iPad.</h1>
+            <p class="lead">Enable SSH only for the intended Mac user, then create a Shortcut that runs the tested BetterDisplay connection command.</p>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 09</div>
+            <h2>Enable Remote Login on the Mac.</h2>
+            <ol>
+              <li>Open <strong>System Settings → General → Sharing</strong>.</li>
+              <li>Turn on <strong>Remote Login</strong>.</li>
+              <li>Prefer <strong>Only these users</strong> and allow only the account you need.</li>
+            </ol>
+            <figure class="visual">
+              <img src="image-4-remote-login.png" alt="macOS Sharing Remote Login enabled" loading="lazy">
+              <figcaption>General → Sharing → Remote Login. Keep access limited to the required user.</figcaption>
+            </figure>
+            <div class="note">
+              <strong>Security:</strong> do not port-forward SSH to the public internet for this guide. Keep hostnames, IPs, and credentials out of public screenshots.
+            </div>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 14 · 1/3</div>
+            <h2>Create a new Shortcut.</h2>
+            <p>Open Shortcuts on the iPad and tap the <strong>+</strong> button to create a new Shortcut.</p>
+            <figure class="visual">
+              <img src="image-5-shortcut-add.png" alt="iPad Shortcuts plus button" loading="lazy">
+              <figcaption>Shortcuts → All Shortcuts → tap +.</figcaption>
+            </figure>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 14 · 2/3</div>
+            <h2>Add “Run Script Over SSH”.</h2>
+            <p>Search for the SSH action and add <strong>Run Script Over SSH</strong>.</p>
+            <figure class="visual">
+              <img src="image-6-shortcut-ssh.png" alt="iPad Shortcuts search Run Script Over SSH" loading="lazy">
+              <figcaption>Search actions → Run Script Over SSH.</figcaption>
+            </figure>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 14 · 3/3</div>
+            <h2>Enter the command and your Mac connection details.</h2>
+            <div class="code">
+              <div class="codehead">
+                <span>Shortcut script</span>
+                <button class="copy" type="button">Copy</button>
+              </div>
+              <pre><code>/Applications/BetterDisplay.app/Contents/MacOS/BetterDisplay set -sidecarConnected=on -specifier="NAMA_IPAD_ANDA"</code></pre>
+            </div>
+            <p>Set Host to the Mac's reachable local host/IP, Port to 22 unless changed, User to the macOS account, and configure authentication securely.</p>
+            <figure class="visual">
+              <img src="image-7-shortcut-config.png" alt="Run Script Over SSH shortcut configuration" loading="lazy">
+              <figcaption>Run Script Over SSH → paste the tested command, then fill Host, Port, User, and authentication.</figcaption>
+            </figure>
+            <div class="complete">
+              <label class="check"><input type="checkbox" data-done="ch5"> Shortcut tested</label>
+              <button class="btn primary" data-go="ch6">Continue →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 06 -->
+        <section class="page" id="ch6">
+          <div class="hero">
+            <div class="eyebrow">06 · Go Headless</div>
+            <h1>Remove HDMI only after every layer works.</h1>
+            <p class="lead">Test the wired-to-wireless transition, reconnect behavior, and the complete workflow while a recovery monitor is still nearby.</p>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 13</div>
+            <h2>Test Lightning → wireless Sidecar.</h2>
+            <ol>
+              <li>Connect the iPad with a data-capable USB-C to Lightning cable.</li>
+              <li>Confirm Sidecar and Main Display behavior.</li>
+              <li>Keep Wi-Fi, Bluetooth, and Handoff on, then disconnect the cable.</li>
+              <li>Confirm wireless Sidecar returns and remains usable.</li>
+            </ol>
+          </div>
+          <div class="section">
+            <div class="stepmeta">Step 16</div>
+            <h2>Run the final test without HDMI.</h2>
+            <p>Only after the Mac is logged in, BetterDisplay is running, the Virtual Display is active, and the Shortcut works: save your work, disconnect HDMI, then test reconnecting Sidecar from the iPad.</p>
+            <div class="note">
+              <strong>Recovery rule:</strong> keep HDMI available. Login Items run after login and do not solve FileVault/pre-login display access.
+            </div>
+            <div class="complete">
+              <label class="check"><input type="checkbox" data-done="ch6"> Final test passed</label>
+              <button class="btn primary" data-go="overview">Finish →</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- TROUBLESHOOTING -->
+        <section class="page" id="troubleshoot">
+          <div class="hero">
+            <div class="eyebrow">Help</div>
+            <h1>Troubleshooting.</h1>
+            <p class="lead">Debug the lowest layer first instead of changing several parts at once.</p>
+          </div>
+          <div class="section faq">
+            <details>
+              <summary>iPad does not appear in Displays</summary>
+              <p>Check Apple Account, Wi-Fi, Bluetooth, Handoff, compatibility, distance, then retry with a data cable and Trust prompt.</p>
+            </details>
+            <details>
+              <summary>BetterDisplay sidecarList is empty</summary>
+              <p>Confirm BetterDisplay is running and first verify that normal macOS Sidecar works.</p>
+            </details>
+            <details>
+              <summary>Shortcut reports connection refused or timeout</summary>
+              <p>Check that the Mac is on and logged in, Remote Login is enabled, host/IP and user are correct, and the local network allows the connection.</p>
+            </details>
+            <details>
+              <summary>SSH succeeds but the iPad shows no Mac desktop</summary>
+              <p>SSH success is not Sidecar success. Run the BetterDisplay command locally on the Mac and verify Sidecar manually.</p>
+            </details>
+            <details>
+              <summary>Restart leaves you without a display</summary>
+              <p>Login Items wait until macOS login. Reconnect HDMI for recovery and log in normally.</p>
+            </details>
+          </div>
+        </section>
+
+        <!-- FAQ & SAFETY -->
+        <section class="page" id="faq">
+          <div class="hero">
+            <div class="eyebrow">Reference</div>
+            <h1>FAQ & safety.</h1>
+          </div>
+          <div class="section faq">
+            <details>
+              <summary>Is this remote desktop?</summary>
+              <p>No. This workflow uses local Sidecar. Use a separate remote desktop solution for access across the internet.</p>
+            </details>
+            <details>
+              <summary>Can it bypass FileVault or the login screen?</summary>
+              <p>No. The described Login Item automation starts after the user session begins.</p>
+            </details>
+            <details>
+              <summary>Why use a Virtual Display?</summary>
+              <p>It acts as a backup display layer for the headless workflow. It does not itself send the Mac image to the iPad.</p>
+            </details>
+            <details>
+              <summary>Why are commands copyable?</summary>
+              <p>Because they are required tools. Protect access to the guide, not the commands legitimate buyers need to complete it.</p>
+            </details>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  const chapters = [
+    ['ch1', '01', 'Before You Start', 'Safe starting point'],
+    ['ch2', '02', 'Connect Your iPad', 'Manual Sidecar'],
+    ['ch3', '03', 'Configure BetterDisplay', 'Virtual display + CLI'],
+    ['ch4', '04', 'Make It Automatic', 'Login automation'],
+    ['ch5', '05', 'One-Tap Connection', 'SSH + Shortcut'],
+    ['ch6', '06', 'Go Headless', 'Wireless + final test']
+  ];
+
+  const storageKey = 'sidecar-v2-progress';
+  let done = {};
+  try {
+    done = JSON.parse(localStorage.getItem('sidecar-v2-progress') || localStorage.getItem('sidecar-guide-v2-progress') || '{}');
+  } catch (err) {
+    done = {};
+  }
+
+  const nav = document.getElementById('nav');
+  const main = document.getElementById('main');
+  const side = document.getElementById('side');
+  const overlay = document.getElementById('overlay');
+  const pct = document.getElementById('pct');
+  const fill = document.getElementById('fill');
+  const ptext = document.getElementById('ptext');
+  const menu = document.getElementById('menu');
+
+  function draw() {
+    nav.innerHTML = '';
+    const activePage = document.querySelector('.page.active')?.id || 'overview';
+    
+    chapters.forEach(c => {
+      const b = document.createElement('button');
+      b.dataset.go = c[0];
+      if (c[0] === activePage) {
+        b.classList.add('active');
+      }
+      b.innerHTML = `<span class="n">${done[c[0]] ? '✓' : c[1]}</span><span><div class="nt">${c[2]}</div><div class="ns">${c[3]}</div></span>`;
+      nav.appendChild(b);
+    });
+
+    const n = chapters.filter(c => done[c[0]]).length;
+    const p = Math.round((n / 6) * 100);
+    pct.textContent = p + '%';
+    fill.style.width = p + '%';
+    ptext.textContent = `${n} of 6 chapters`;
+  }
+
+  function closeMenu() {
+    side.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+
+  function show(id) {
+    const target = document.getElementById(id);
+    if (!target) id = 'overview';
+
+    document.querySelectorAll('.page').forEach(x => {
+      x.classList.toggle('active', x.id === id);
+    });
+
+    document.querySelectorAll('[data-go]').forEach(x => {
+      x.classList.toggle('active', x.dataset.go === id);
+    });
+
+    main.scrollTop = 0;
+    closeMenu();
+    if (location.hash.slice(1) !== id) {
+      history.replaceState(null, '', '#' + id);
+    }
+  }
+
+  function copyFallback(text, button) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try {
+      ok = document.execCommand('copy');
+    } catch (e) {
+      ok = false;
+    }
+    ta.remove();
+    if (ok) {
+      button.textContent = 'Copied';
+      setTimeout(() => button.textContent = 'Copy', 1200);
+    } else {
+      window.prompt('Copy command:', text);
+    }
+  }
+
+  document.addEventListener('click', e => {
+    const g = e.target.closest('[data-go]');
+    if (g) {
+      return show(g.dataset.go);
+    }
+
+    const c = e.target.closest('.copy');
+    if (c) {
+      const t = c.closest('.code').querySelector('code').innerText.trim();
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(t).then(() => {
+          c.textContent = 'Copied';
+          setTimeout(() => c.textContent = 'Copy', 1200);
+        }).catch(() => {
+          copyFallback(t, c);
+        });
+      } else {
+        copyFallback(t, c);
+      }
+    }
+  });
+
+  document.querySelectorAll('[data-done]').forEach(x => {
+    x.checked = !!done[x.dataset.done];
+    x.onchange = () => {
+      done[x.dataset.done] = x.checked;
+      try {
+        localStorage.setItem('sidecar-v2-progress', JSON.stringify(done));
+        localStorage.setItem('sidecar-guide-v2-progress', JSON.stringify(done));
+      } catch (err) {}
+      draw();
+    };
+  });
+
+  menu.onclick = () => {
+    side.classList.add('open');
+    overlay.classList.add('show');
+  };
+
+  overlay.onclick = closeMenu;
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  window.addEventListener('hashchange', () => {
+    show(location.hash.slice(1) || 'overview');
+  });
+
+  draw();
+  show(location.hash.slice(1) || 'overview');
+</script>
+</body>
+</html>
