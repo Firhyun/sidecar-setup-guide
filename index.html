@@ -517,6 +517,11 @@
       -webkit-user-select: text !important;
     }
 
+    #fbDropzone:hover {
+      border-color: var(--ink) !important;
+      background: #fbfbfa !important;
+    }
+
     /* Responsive Breakpoints */
     @media (max-width: 800px) {
       :root {
@@ -972,13 +977,33 @@
                     <textarea id="fbDetails" rows="3" placeholder="Jelaskan pesan error atau kendala yang dihadapi..." required style="box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 13.5px; background: var(--bg); color: var(--ink); outline: none; font-family: inherit; resize: vertical;"></textarea>
                   </div>
 
+                  <!-- Upload Screenshot (Optional) -->
+                  <div>
+                    <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--ink);">Upload Screenshot / Foto Kendala <span style="font-weight: 400; color: var(--ter); font-size: 11.5px;">(Opsional)</span></label>
+                    <div id="fbDropzone" style="border: 1px dashed var(--strong); border-radius: 10px; padding: 14px 16px; background: var(--bg); text-align: center; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease;">
+                      <input type="file" id="fbScreenshot" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;">
+                      <div id="dropzoneEmpty" style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ter);"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <div style="font-size: 13px; font-weight: 500; color: var(--ink);">Pilih screenshot atau foto error</div>
+                        <div style="font-size: 11px; color: var(--ter);">PNG, JPG, JPEG, atau WEBP (Maks 5 MB)</div>
+                      </div>
+                      <div id="dropzonePreview" style="display: none; align-items: center; justify-content: space-between; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 10px; overflow: hidden; text-align: left;">
+                          <img id="fbPreviewImg" src="" alt="Preview screenshot" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); flex-shrink: 0;">
+                          <span id="fbFileName" style="font-size: 13px; font-weight: 500; color: var(--ink); text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"></span>
+                        </div>
+                        <button type="button" id="fbRemoveFile" style="background: var(--sub); border: 1px solid var(--line); cursor: pointer; color: var(--muted); font-size: 12px; padding: 6px 10px; border-radius: 6px; font-weight: 500; flex-shrink: 0;">✕ Hapus</button>
+                      </div>
+                    </div>
+                  </div>
+
                   <div style="display: flex; gap: 10px; align-items: center; justify-content: flex-end; margin-top: 4px;">
-                    <button type="submit" class="btn primary" style="font-size: 13px; padding: 10px 20px;">Kirim Feedback</button>
+                    <button type="submit" class="btn primary" id="fbSubmitBtn" style="font-size: 13px; padding: 10px 20px;">Kirim Feedback</button>
                   </div>
                 </form>
 
                 <div id="feedbackFormSubmitted" style="display: none; margin-top: 16px; padding: 14px 18px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; color: #1e40af; font-size: 14px; line-height: 1.5;">
-                  ✓ Terima kasih! Feedback tersimpan dan akan digunakan untuk perbaikan guide.
+                  ✓ Feedback berhasil dikirim ke <strong>ofifah13@gmail.com</strong>.
                 </div>
               </div>
             </div>
@@ -1200,6 +1225,51 @@
 
   function initFeedback() {
     if (!btnYes || !btnNo) return;
+    const fbFileInput = document.getElementById('fbScreenshot');
+    const dropzone = document.getElementById('fbDropzone');
+    const dropzoneEmpty = document.getElementById('dropzoneEmpty');
+    const dropzonePreview = document.getElementById('dropzonePreview');
+    const fbPreviewImg = document.getElementById('fbPreviewImg');
+    const fbFileName = document.getElementById('fbFileName');
+    const fbRemoveFile = document.getElementById('fbRemoveFile');
+    const fbSubmitBtn = document.getElementById('fbSubmitBtn');
+
+    if (dropzone && fbFileInput) {
+      dropzone.onclick = (e) => {
+        if (e.target !== fbRemoveFile) fbFileInput.click();
+      };
+
+      fbFileInput.onchange = () => {
+        const file = fbFileInput.files[0];
+        if (file) {
+          if (file.size > 5 * 1024 * 1024) {
+            alert('Ukuran gambar maksimal 5 MB.');
+            fbFileInput.value = '';
+            return;
+          }
+          fbFileName.textContent = file.name;
+          const reader = new FileReader();
+          reader.onload = (re) => {
+            fbPreviewImg.src = re.target.result;
+            dropzoneEmpty.style.display = 'none';
+            dropzonePreview.style.display = 'flex';
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+
+      if (fbRemoveFile) {
+        fbRemoveFile.onclick = (e) => {
+          e.stopPropagation();
+          fbFileInput.value = '';
+          fbPreviewImg.src = '';
+          fbFileName.textContent = '';
+          dropzoneEmpty.style.display = 'flex';
+          dropzonePreview.style.display = 'none';
+        };
+      }
+    }
+
     let savedFb = null;
     try {
       savedFb = JSON.parse(localStorage.getItem(fbKey) || 'null');
@@ -1219,7 +1289,6 @@
         if (savedFb.os) document.getElementById('fbOS').value = savedFb.os;
         if (savedFb.chapter) document.getElementById('fbChapter').value = savedFb.chapter;
         if (savedFb.details) document.getElementById('fbDetails').value = savedFb.details;
-        fbSubmitted.style.display = 'block';
       }
     }
 
@@ -1243,22 +1312,86 @@
       } catch (e) {}
     };
 
-    fbForm.onsubmit = (e) => {
+    fbForm.onsubmit = async (e) => {
       e.preventDefault();
+      const submitBtn = fbSubmitBtn || fbForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Mengirim ke ofifah13@gmail.com...';
+
+      const mac = document.getElementById('fbMac').value.trim();
+      const ipad = document.getElementById('fbiPad').value.trim();
+      const os = document.getElementById('fbOS').value.trim();
+      const chapterSelect = document.getElementById('fbChapter');
+      const chapterText = chapterSelect.options[chapterSelect.selectedIndex]?.text || chapterSelect.value;
+      const details = document.getElementById('fbDetails').value.trim();
+      const file = fbFileInput && fbFileInput.files ? fbFileInput.files[0] : null;
+
+      // Backup to localStorage
       const payload = {
         result: 'not_yet',
-        mac: document.getElementById('fbMac').value.trim(),
-        ipad: document.getElementById('fbiPad').value.trim(),
-        os: document.getElementById('fbOS').value.trim(),
-        chapter: document.getElementById('fbChapter').value,
-        details: document.getElementById('fbDetails').value.trim(),
+        mac,
+        ipad,
+        os,
+        chapter: chapterSelect.value,
+        details,
+        fileName: file ? file.name : null,
         date: new Date().toISOString()
       };
       try {
         localStorage.setItem(fbKey, JSON.stringify(payload));
       } catch (err) {}
-      fbSubmitted.style.display = 'block';
-      fbSubmitted.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // Prepare FormData for FormSubmit
+      const formData = new FormData();
+      formData.append('Mac Model', mac);
+      formData.append('iPad Model', ipad);
+      formData.append('macOS / iPadOS Version', os);
+      formData.append('Gagal di Chapter', chapterText);
+      formData.append('Kendala', details);
+      if (file) {
+        formData.append('attachment', file);
+      }
+      formData.append('_subject', `[Sidecar Setup Guide] Laporan Kendala: ${chapterText}`);
+      formData.append('_template', 'table');
+      formData.append('_captcha', 'false');
+
+      try {
+        const resp = await fetch('https://formsubmit.co/ajax/ofifah13@gmail.com', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (resp.ok) {
+          fbSubmitted.innerHTML = '✓ <strong>Terima kasih!</strong> Laporan kendala' + (file ? ' dan screenshot' : '') + ' berhasil dikirim langsung ke <strong>ofifah13@gmail.com</strong>.';
+          fbSubmitted.style.display = 'block';
+        } else {
+          throw new Error('Server returned status ' + resp.status);
+        }
+      } catch (err) {
+        console.warn('Direct submit notice:', err);
+        const mailtoSubject = encodeURIComponent(`[Sidecar Setup Guide] Laporan Kendala: ${chapterText}`);
+        const mailtoBody = encodeURIComponent(
+          `Halo,\n\nBerikut laporan kendala setup Sidecar:\n` +
+          `• Mac model: ${mac}\n` +
+          `• iPad model: ${ipad}\n` +
+          `• macOS / iPadOS: ${os}\n` +
+          `• Gagal di chapter: ${chapterText}\n\n` +
+          `Keterangan kendala:\n${details}\n\n` +
+          (file ? `(Lampirkan screenshot: ${file.name})\n` : '')
+        );
+        const mailtoUrl = `mailto:ofifah13@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+        fbSubmitted.innerHTML = `✓ <strong>Data berhasil diproses!</strong> <a href="${mailtoUrl}" target="_blank" style="color: #1e40af; text-decoration: underline; font-weight: 600;">Klik di sini untuk konfirmasi via email ke ofifah13@gmail.com</a>.`;
+        fbSubmitted.style.display = 'block';
+        window.open(mailtoUrl, '_blank');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        fbSubmitted.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     };
   }
 
