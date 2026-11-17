@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sidecar Setup Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff;
@@ -25,11 +28,15 @@
     html, body {
       margin: 0;
       height: 100%;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background: var(--bg);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, .brand, .side h2, .eyebrow {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     button {
@@ -912,7 +919,7 @@
             <!-- BETA FEEDBACK: DID THIS SETUP WORK FOR YOU? -->
             <div class="feedback-block" id="feedbackSection" style="margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--line);">
               <div class="stepmeta">Beta feedback</div>
-              <h3 style="font-size: 21px; letter-spacing: -0.025em; margin: 0 0 8px; font-weight: 650;">Did this setup work for you?</h3>
+              <h3 style="font-size: 21px; letter-spacing: -0.025em; margin: 0 0 8px; font-weight: 700; font-family: 'Montserrat', sans-serif;">Did this setup work for you?</h3>
               <p style="font-size: 15px; color: var(--muted); margin: 0 0 20px; line-height: 1.6;">We are tracking real setup success for this Mac mini + iPad configuration.</p>
               
               <div style="display: flex; gap: 12px; flex-wrap: wrap;" id="feedbackActions">
@@ -933,7 +940,7 @@
               <div id="feedbackFormContainer" style="display: none; margin-top: 24px; padding: 24px; background: var(--sub); border: 1px solid var(--line); border-radius: 16px;">
                 <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;">
                   <div>
-                    <h4 style="font-size: 16px; font-weight: 650; margin: 0 0 4px; color: var(--ink);">Let's help you get it running</h4>
+                    <h4 style="font-size: 16px; font-weight: 700; margin: 0 0 4px; color: var(--ink); font-family: 'Montserrat', sans-serif;">Let's help you get it running</h4>
                     <p style="font-size: 13.5px; color: var(--muted); margin: 0; line-height: 1.5;">Check our troubleshooting steps or tell us what happened below.</p>
                   </div>
                   <button class="btn" data-go="troubleshoot" type="button" style="background: var(--bg); font-size: 12.5px; white-space: nowrap;">
