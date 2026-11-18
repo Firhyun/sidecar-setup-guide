@@ -28,3 +28,5 @@ node_modules/
 Thumbs.db
 backup_v1/
 v2_extracted/
+.vercel
+.env*
