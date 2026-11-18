@@ -1,0 +1,11 @@
+# Vercel Ignore file
+figcraft-cli-0.17.0-macos-universal/
+exports/
+backup_v1/
+v2_extracted/
+*.fig
+*.figcraft
+*.py
+dokfin*
+skills/
+.agents/
