@@ -1229,6 +1229,7 @@
   const fbFormContainer = document.getElementById('feedbackFormContainer');
   const fbForm = document.getElementById('feedbackForm');
   const fbSubmitted = document.getElementById('feedbackFormSubmitted');
+  let fbTimer = null;
 
   function initFeedback() {
     if (!btnYes || !btnNo) return;
@@ -1241,6 +1242,32 @@
     const fbRemoveFile = document.getElementById('fbRemoveFile');
     const fbSubmitBtn = document.getElementById('fbSubmitBtn');
 
+    function clearScreenshot() {
+      if (fbFileInput) fbFileInput.value = '';
+      if (fbPreviewImg) fbPreviewImg.src = '';
+      if (fbFileName) fbFileName.textContent = '';
+      if (dropzoneEmpty) dropzoneEmpty.style.display = 'flex';
+      if (dropzonePreview) dropzonePreview.style.display = 'none';
+    }
+
+    function resetFeedbackForm() {
+      fbForm.reset();
+      const fbMac = document.getElementById('fbMac');
+      const fbiPad = document.getElementById('fbiPad');
+      const fbOS = document.getElementById('fbOS');
+      const fbChapter = document.getElementById('fbChapter');
+      const fbDetails = document.getElementById('fbDetails');
+      if (fbMac) fbMac.value = '';
+      if (fbiPad) fbiPad.value = '';
+      if (fbOS) fbOS.value = '';
+      if (fbChapter) fbChapter.selectedIndex = 0;
+      if (fbDetails) fbDetails.value = '';
+      clearScreenshot();
+      try {
+        localStorage.setItem(fbKey, JSON.stringify({ result: 'not_yet', date: new Date().toISOString() }));
+      } catch (e) {}
+    }
+
     if (dropzone && fbFileInput) {
       dropzone.onclick = (e) => {
         if (e.target !== fbRemoveFile) fbFileInput.click();
@@ -1251,7 +1278,7 @@
         if (file) {
           if (file.size > 5 * 1024 * 1024) {
             alert('Ukuran gambar maksimal 5 MB.');
-            fbFileInput.value = '';
+            clearScreenshot();
             return;
           }
           fbFileName.textContent = file.name;
@@ -1268,11 +1295,7 @@
       if (fbRemoveFile) {
         fbRemoveFile.onclick = (e) => {
           e.stopPropagation();
-          fbFileInput.value = '';
-          fbPreviewImg.src = '';
-          fbFileName.textContent = '';
-          dropzoneEmpty.style.display = 'flex';
-          dropzonePreview.style.display = 'none';
+          clearScreenshot();
         };
       }
     }
@@ -1304,6 +1327,11 @@
       btnNo.classList.remove('primary');
       fbSuccess.style.display = 'block';
       fbFormContainer.style.display = 'none';
+      if (fbTimer) {
+        clearTimeout(fbTimer);
+        fbTimer = null;
+      }
+      if (fbSubmitted) fbSubmitted.style.display = 'none';
       try {
         localStorage.setItem(fbKey, JSON.stringify({ result: 'worked', date: new Date().toISOString() }));
       } catch (e) {}
@@ -1314,6 +1342,11 @@
       btnYes.classList.remove('primary');
       fbSuccess.style.display = 'none';
       fbFormContainer.style.display = 'block';
+      if (fbTimer) {
+        clearTimeout(fbTimer);
+        fbTimer = null;
+      }
+      if (fbSubmitted) fbSubmitted.style.display = 'none';
       try {
         localStorage.setItem(fbKey, JSON.stringify({ result: 'not_yet', date: new Date().toISOString() }));
       } catch (e) {}
@@ -1322,9 +1355,14 @@
     fbForm.onsubmit = async (e) => {
       e.preventDefault();
       const submitBtn = fbSubmitBtn || fbForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Mengirim ke ofifah13@gmail.com...';
+      submitBtn.textContent = 'Mengirim...';
+
+      if (fbTimer) {
+        clearTimeout(fbTimer);
+        fbTimer = null;
+      }
+      fbSubmitted.style.display = 'none';
 
       const mac = document.getElementById('fbMac').value.trim();
       const ipad = document.getElementById('fbiPad').value.trim();
@@ -1333,21 +1371,6 @@
       const chapterText = chapterSelect.options[chapterSelect.selectedIndex]?.text || chapterSelect.value;
       const details = document.getElementById('fbDetails').value.trim();
       const file = fbFileInput && fbFileInput.files ? fbFileInput.files[0] : null;
-
-      // Backup to localStorage
-      const payload = {
-        result: 'not_yet',
-        mac,
-        ipad,
-        os,
-        chapter: chapterSelect.value,
-        details,
-        fileName: file ? file.name : null,
-        date: new Date().toISOString()
-      };
-      try {
-        localStorage.setItem(fbKey, JSON.stringify(payload));
-      } catch (err) {}
 
       // Prepare FormData for FormSubmit
       const formData = new FormData();
@@ -1373,31 +1396,44 @@
         });
 
         if (resp.ok) {
+          fbSubmitted.style.background = '#eff6ff';
+          fbSubmitted.style.borderColor = '#bfdbfe';
+          fbSubmitted.style.color = '#1e40af';
           fbSubmitted.innerHTML = '✓ <strong>Terima kasih!</strong> Laporan kendala' + (file ? ' dan screenshot' : '') + ' berhasil dikirim langsung ke <strong>ofifah13@gmail.com</strong>.';
           fbSubmitted.style.display = 'block';
+
+          // Reset all user-entered fields & file preview ONLY on success
+          resetFeedbackForm();
+
+          fbSubmitted.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+          // Auto-hide success notification after 10 seconds
+          if (fbTimer) clearTimeout(fbTimer);
+          fbTimer = setTimeout(() => {
+            fbSubmitted.style.display = 'none';
+            fbTimer = null;
+          }, 10000);
         } else {
           throw new Error('Server returned status ' + resp.status);
         }
       } catch (err) {
-        console.warn('Direct submit notice:', err);
-        const mailtoSubject = encodeURIComponent(`[Sidecar Setup Guide] Laporan Kendala: ${chapterText}`);
-        const mailtoBody = encodeURIComponent(
-          `Halo,\n\nBerikut laporan kendala setup Sidecar:\n` +
-          `• Mac model: ${mac}\n` +
-          `• iPad model: ${ipad}\n` +
-          `• macOS / iPadOS: ${os}\n` +
-          `• Gagal di chapter: ${chapterText}\n\n` +
-          `Keterangan kendala:\n${details}\n\n` +
-          (file ? `(Lampirkan screenshot: ${file.name})\n` : '')
-        );
-        const mailtoUrl = `mailto:ofifah13@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
-        fbSubmitted.innerHTML = `✓ <strong>Data berhasil diproses!</strong> <a href="${mailtoUrl}" target="_blank" style="color: #1e40af; text-decoration: underline; font-weight: 600;">Klik di sini untuk konfirmasi via email ke ofifah13@gmail.com</a>.`;
+        console.warn('Submit error:', err);
+        // DO NOT reset form fields or screenshot on failure! Keep user inputs intact.
+        fbSubmitted.style.background = '#fef2f2';
+        fbSubmitted.style.borderColor = '#fecaca';
+        fbSubmitted.style.color = '#991b1b';
+        fbSubmitted.innerHTML = '✕ <strong>Gagal mengirim laporan kendala.</strong> Silakan periksa koneksi internet Anda dan coba lagi.';
         fbSubmitted.style.display = 'block';
-        window.open(mailtoUrl, '_blank');
+        fbSubmitted.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        if (fbTimer) clearTimeout(fbTimer);
+        fbTimer = setTimeout(() => {
+          fbSubmitted.style.display = 'none';
+          fbTimer = null;
+        }, 10000);
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        fbSubmitted.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        submitBtn.textContent = 'Kirim Feedback';
       }
     };
   }
